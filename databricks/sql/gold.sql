@@ -153,12 +153,12 @@ GROUP BY ALL;
 
 CREATE OR REPLACE TABLE sc2.gold.population_trend AS
 WITH daily AS (
-  SELECT snapshot_date, region, race,
-    IF(league IN ('MASTER', 'GRANDMASTER'), 'MASTER+', league) AS league_group,
-    character_id, sum(games_delta) AS games, min(first_seen) AS first_seen
+  SELECT t.snapshot_date, t.region, t.race,
+    IF(t.league IN ('MASTER', 'GRANDMASTER'), 'MASTER+', t.league) AS league_group,
+    t.character_id, sum(t.games_delta) AS games, min(c.first_seen) AS first_seen
   FROM sc2.silver.fct_ladder_team_snapshot t
-  JOIN sc2.silver.dim_character USING (character_id)
-  WHERE games_delta > 0 AND race IS NOT NULL
+  JOIN sc2.silver.dim_character c USING (character_id)
+  WHERE t.games_delta > 0 AND t.race IS NOT NULL
   GROUP BY ALL
 )
 SELECT
