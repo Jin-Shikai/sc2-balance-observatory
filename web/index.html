@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opponent Lens · SC2 Balance Observatory</title>
+<style>
+  :root {
+    --bg: #15171b; --panel: #1d2026; --border: #2b2f37;
+    --text: #cfd3da; --muted: #7f8791; --accent: #6ea8dc;
+    --terran: #4f8fd1; --protoss: #d4b23c; --zerg: #9b59d0; --random: #8a9199;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 16px; font-weight: 600; margin: 8px 0 2px; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
+  .row { display: flex; gap: 8px; }
+  input {
+    flex: 1; max-width: 420px; padding: 7px 10px; background: var(--panel);
+    border: 1px solid var(--border); color: var(--text); border-radius: 3px; font: inherit;
+  }
+  input:focus { outline: 1px solid var(--accent); }
+  button {
+    padding: 7px 16px; background: var(--panel); border: 1px solid var(--border);
+    color: var(--text); border-radius: 3px; font: inherit; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  #status { color: var(--muted); font-size: 12px; margin: 10px 0; min-height: 18px; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 18px; }
+  th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.sel { cursor: pointer; }
+  tr.sel:hover td { background: var(--panel); }
+  .race { font-weight: 600; }
+  .TERRAN { color: var(--terran); } .PROTOSS { color: var(--protoss); }
+  .ZERG { color: var(--zerg); } .RANDOM { color: var(--random); }
+  .cards { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 3px;
+    padding: 8px 14px; min-width: 150px;
+  }
+  .card b { font-size: 15px; }
+  .card div { font-size: 12px; color: var(--muted); }
+  .card div span { color: var(--text); font-variant-numeric: tabular-nums; }
+  #chartwrap { background: var(--panel); border: 1px solid var(--border); border-radius: 3px;
+    padding: 10px; height: 420px; display: none; }
+  footer { color: var(--muted); font-size: 11px; margin: 20px 0; }
+  footer a { color: var(--muted); }
+  section { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Opponent Lens</h1>
+  <div class="sub">搜索玩家，查看其近期 1v1 对手（按种族分组）的历史 MMR 轨迹 · SC2 Balance Observatory</div>
+
+  <div class="row">
+    <input id="q" placeholder="玩家名或 BattleTag，如 Serral" autofocus>
+    <button id="go">搜索</button>
+  </div>
+  <div id="status"></div>
+
+  <section id="results">
+    <table>
+      <thead><tr><th>角色</th><th>BattleTag</th><th>地区</th>
+        <th class="num">最高 MMR</th><th class="num">总场次</th></tr></thead>
+      <tbody id="results-body"></tbody>
+    </table>
+  </section>
+
+  <section id="detail">
+    <h1 id="player-title"></h1>
+    <div class="sub" id="player-sub"></div>
+    <div class="cards" id="cards"></div>
+    <div id="chartwrap"><canvas id="chart"></canvas></div>
+    <table>
+      <thead><tr><th>对手</th><th>种族</th><th class="num">交手</th><th class="num">我方胜-负</th>
+        <th class="num">当前 MMR</th><th class="num">90 天 Δ</th></tr></thead>
+      <tbody id="opp-body"></tbody>
+    </table>
+  </section>
+
+  <footer>Data: <a href="https://sc2pulse.nephest.com/sc2/">SC2 Pulse</a> (non-commercial). Not affiliated with Blizzard.</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<script>
+const API = 'https://sc2pulse.nephest.com/sc2/api';
+const RACES = { 1: 'TERRAN', 2: 'PROTOSS', 3: 'ZERG', 4: 'RANDOM' };
+const COLORS = { TERRAN: '#4f8fd1', PROTOSS: '#d4b23c', ZERG: '#9b59d0', RANDOM: '#8a9199' };
+const MAX_OPPONENTS = 30;
+const HISTORY_DAYS = 365;
+
+const $ = id => document.getElementById(id);
+const status = msg => { $('status').textContent = msg || ''; };
+const esc = s => { const d = document.createElement('span'); d.textContent = s ?? ''; return d.innerHTML; };
+let chart = null;
+
+async function get(path, params) {
+  const url = API + path + '?' + new URLSearchParams(params);
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`Pulse API ${r.status}`);
+  return r.json();
+}
+
+async function search() {
+  const q = $('q').value.trim();
+  if (!q) return;
+  status('搜索中…');
+  $('detail').style.display = 'none';
+  try {
+    const found = await get('/characters', { query: q });
+    const body = $('results-body');
+    body.innerHTML = '';
+    for (const c of found.slice(0, 20)) {
+      const ch = c.members.character, acc = c.members.account;
+      const tr = document.createElement('tr');
+      tr.className = 'sel';
+      tr.innerHTML = `<td>${esc(ch.name)}</td><td>${esc(acc.battleTag)}</td><td>${esc(ch.region)}</td>
+        <td class="num">${c.ratingMax ?? '–'}</td><td class="num">${c.totalGamesPlayed ?? '–'}</td>`;
+      tr.onclick = () => load(c);
+      body.appendChild(tr);
+    }
+    $('results').style.display = 'block';
+    status(found.length ? `${found.length} 个结果，点击查看` : '无结果');
+  } catch (e) { status(e.message); }
+}
+
+function collectOpponents(matches, myId) {
+  const opps = new Map();
+  for (const m of matches) {
+    if (m.match.type !== '_1V1' || m.participants.length !== 2) continue;
+    const mine = m.participants.find(p => p.participant.playerCharacterId === myId);
+    const theirs = m.participants.find(p => p.participant.playerCharacterId !== myId);
+    if (!mine || !theirs || !theirs.team) continue;
+    const uid = theirs.team.legacyUid;
+    const race = RACES[(uid.match(/\.([1-4])$/) || [])[1]];
+    if (!race) continue;
+    const o = opps.get(uid) || {
+      uid, race,
+      name: (theirs.team.members[0]?.character.name || '?').split('#')[0],
+      pro: theirs.team.members[0]?.proNickname,
+      rating: theirs.team.rating,
+      faced: 0, wins: 0, losses: 0, lastDate: m.match.date,
+    };
+    o.faced++;
+    if (mine.participant.decision === 'WIN') o.wins++;
+    if (mine.participant.decision === 'LOSS') o.losses++;
+    opps.set(uid, o);
+  }
+  return [...opps.values()]
+    .sort((a, b) => new Date(b.lastDate) - new Date(a.lastDate))
+    .slice(0, MAX_OPPONENTS);
+}
+
+async function fetchHistories(opps) {
+  const from = new Date(Date.now() - HISTORY_DAYS * 86400e3).toISOString();
+  const byUid = new Map();
+  for (let i = 0; i < opps.length; i += 10) {
+    const chunk = opps.slice(i, i + 10).map(o => o.uid);
+    status(`拉取对手 MMR 历史… ${Math.min(i + 10, opps.length)}/${opps.length}`);
+    const rows = await get('/team-histories', {
+      teamLegacyUid: chunk.join(','), history: 'TIMESTAMP,RATING', from,
+    });
+    for (const row of rows || []) {
+      byUid.set(row.staticData.LEGACY_UID, dailyLast(row.history.TIMESTAMP, row.history.RATING));
+    }
+  }
+  return byUid;
+}
+
+function dailyLast(ts, rating) {
+  const out = [];
+  for (let i = 0; i < ts.length; i++) {
+    const day = Math.floor(ts[i] / 86400);
+    if (out.length && out[out.length - 1].day === day) out[out.length - 1] = { day, x: ts[i] * 1000, y: rating[i] };
+    else out.push({ day, x: ts[i] * 1000, y: rating[i] });
+  }
+  return out;
+}
+
+function delta90(points) {
+  if (points.length < 2) return null;
+  const cutoff = Date.now() - 90 * 86400e3;
+  const base = points.find(p => p.x >= cutoff);
+  return base ? points[points.length - 1].y - base.y : null;
+}
+
+async function load(c) {
+  const myId = c.members.character.id;
+  $('results').style.display = 'none';
+  $('detail').style.display = 'block';
+  $('player-title').textContent = c.members.character.name.split('#')[0];
+  $('player-sub').textContent =
+    `${c.members.character.region} · 最高 MMR ${c.ratingMax ?? '–'} · 近期对手的历史 MMR 轨迹（近 ${HISTORY_DAYS} 天）`;
+  $('cards').innerHTML = '';
+  $('opp-body').innerHTML = '';
+  status('拉取比赛记录…');
+  try {
+    const page = await get('/character-matches', { characterId: myId, type: '_1V1', limit: 100 });
+    const opps = collectOpponents(page.result || [], myId);
+    if (!opps.length) { status('近期没有 1v1 比赛记录'); return; }
+    const histories = await fetchHistories(opps);
+    render(opps, histories);
+    status('');
+  } catch (e) { status(e.message); }
+}
+
+function render(opps, histories) {
+  const byRace = {};
+  for (const o of opps) {
+    o.points = histories.get(o.uid) || [];
+    o.d90 = delta90(o.points);
+    (byRace[o.race] ??= []).push(o);
+  }
+
+  const cards = $('cards');
+  for (const race of ['TERRAN', 'PROTOSS', 'ZERG', 'RANDOM']) {
+    const group = byRace[race];
+    if (!group) continue;
+    const wins = group.reduce((s, o) => s + o.wins, 0);
+    const losses = group.reduce((s, o) => s + o.losses, 0);
+    const deltas = group.map(o => o.d90).filter(d => d !== null).sort((a, b) => a - b);
+    const med = deltas.length ? deltas[deltas.length >> 1] : null;
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = `<b class="race ${race}">${race}</b>
+      <div>对手 <span>${group.length}</span> · 我方 <span>${wins}–${losses}</span></div>
+      <div>对手 90 天 MMR Δ 中位 <span>${med === null ? '–' : (med > 0 ? '+' : '') + med}</span></div>`;
+    cards.appendChild(el);
+  }
+
+  const body = $('opp-body');
+  for (const o of [...opps].sort((a, b) => b.faced - a.faced)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${esc(o.name)}${o.pro ? ` <span class="race ${o.race}">[${esc(o.pro)}]</span>` : ''}</td>
+      <td class="race ${o.race}">${o.race[0]}</td>
+      <td class="num">${o.faced}</td><td class="num">${o.wins}–${o.losses}</td>
+      <td class="num">${o.points.at(-1)?.y ?? o.rating ?? '–'}</td>
+      <td class="num">${o.d90 === null ? '–' : (o.d90 > 0 ? '+' : '') + o.d90}</td>`;
+    body.appendChild(tr);
+  }
+
+  $('chartwrap').style.display = 'block';
+  chart?.destroy();
+  chart = new Chart($('chart'), {
+    type: 'line',
+    data: {
+      datasets: opps.filter(o => o.points.length > 1).map(o => ({
+        label: `${o.name} (${o.race[0]})`,
+        data: o.points,
+        borderColor: COLORS[o.race] + 'b0',
+        borderWidth: 1.2,
+        pointRadius: 0,
+        parsing: false,
+      })),
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: items => new Date(items[0].parsed.x).toLocaleDateString(),
+            label: item => `${item.dataset.label}: ${item.parsed.y}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          grid: { color: '#2b2f37' },
+          ticks: { color: '#7f8791', maxTicksLimit: 10,
+            callback: v => new Date(v).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) },
+        },
+        y: {
+          title: { display: true, text: 'MMR', color: '#7f8791' },
+          grid: { color: '#2b2f37' },
+          ticks: { color: '#7f8791' },
+        },
+      },
+    },
+  });
+}
+
+$('go').onclick = search;
+$('q').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+</script>
+</body>
+</html>
