@@ -31,7 +31,8 @@ jobs:
       - run: terraform -chdir=infra validate
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # skipped until OIDC deploy variables are configured (see README)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.AWS_DEPLOY_ROLE_ARN != ''
     needs: [python, terraform]
     runs-on: ubuntu-latest
     environment: production
