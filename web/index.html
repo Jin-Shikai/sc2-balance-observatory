@@ -88,7 +88,7 @@
   <footer>Data: <a href="https://sc2pulse.nephest.com/sc2/">SC2 Pulse</a> (non-commercial). Not affiliated with Blizzard.</footer>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.3/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
 <script>
 const API = 'https://sc2pulse.nephest.com/sc2/api';
 const RACES = { 1: 'TERRAN', 2: 'PROTOSS', 3: 'ZERG', 4: 'RANDOM' };
@@ -246,6 +246,7 @@ function render(opps, histories) {
     body.appendChild(tr);
   }
 
+  if (typeof Chart === 'undefined') { status('图表库加载失败，数据表仍可用'); return; }
   $('chartwrap').style.display = 'block';
   chart?.destroy();
   chart = new Chart($('chart'), {
