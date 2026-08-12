@@ -14,6 +14,14 @@ RETURN CASE WHEN games > 0 THEN
   (wins / games + 1.92 / games + 1.96 * sqrt((wins / games) * (1 - wins / games) / games + 0.96 / (games * games)))
   / (1 + 3.84 / games) END;
 
+-- two-proportion z-test at alpha = 0.05
+CREATE OR REPLACE TEMPORARY FUNCTION prop_diff_significant(w1 BIGINT, n1 BIGINT, w2 BIGINT, n2 BIGINT)
+RETURNS BOOLEAN
+RETURN CASE WHEN n1 > 0 AND n2 > 0 THEN
+  abs(w2 / n2 - w1 / n1) > 1.96 * sqrt(
+    ((w1 + w2) / (n1 + n2)) * (1 - (w1 + w2) / (n1 + n2)) * (1.0 / n1 + 1.0 / n2)
+  ) END;
+
 CREATE OR REPLACE TEMPORARY VIEW frames AS
 SELECT *, concat(left(race, 1), 'v', left(versus_race, 1)) AS matchup
 FROM sc2.silver.fct_balance_frame
@@ -69,7 +77,7 @@ SELECT
   cur.winrate                        AS winrate_cur,
   cur.games                          AS games_cur,
   cur.winrate - prev.winrate         AS winrate_delta,
-  cur.ci_low > prev.ci_high OR cur.ci_high < prev.ci_low AS delta_significant,
+  prop_diff_significant(prev.wins, prev.games, cur.wins, cur.games) AS delta_significant,
   pt.patches_in_season
 FROM sc2.gold.balance_profile cur
 JOIN sc2.gold.balance_profile prev
@@ -115,8 +123,7 @@ SELECT
   wilson_low(wins_post, games_post) AS ci_low_post,
   wilson_high(wins_post, games_post) AS ci_high_post,
   wins_post / nullif(games_post, 0) - wins_pre / nullif(games_pre, 0) AS winrate_delta,
-  wilson_low(wins_post, games_post) > wilson_high(wins_pre, games_pre)
-    OR wilson_high(wins_post, games_post) < wilson_low(wins_pre, games_pre) AS delta_significant
+  prop_diff_significant(wins_pre, games_pre, wins_post, games_post) AS delta_significant
 FROM agg
 WHERE games_pre > 0 AND games_post > 0;
 
