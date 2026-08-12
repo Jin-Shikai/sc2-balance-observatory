@@ -16,7 +16,10 @@
     font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
   }
   main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
   h1 { font-size: 16px; font-weight: 600; margin: 8px 0 2px; }
+  .lang { color: var(--muted); font-size: 12px; cursor: pointer; user-select: none; }
+  .lang b { color: var(--text); }
   .sub { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
   .row { display: flex; gap: 8px; }
   input {
@@ -33,6 +36,8 @@
   table { border-collapse: collapse; width: 100%; margin: 6px 0 18px; }
   th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
   th { color: var(--muted); font-weight: 500; font-size: 12px; }
+  #opp-table th { cursor: pointer; }
+  #opp-table th:hover { color: var(--text); }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr.sel { cursor: pointer; }
   tr.sel:hover td { background: var(--panel); }
@@ -42,8 +47,9 @@
   .cards { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
   .card {
     background: var(--panel); border: 1px solid var(--border); border-radius: 3px;
-    padding: 8px 14px; min-width: 150px;
+    padding: 8px 14px; min-width: 150px; cursor: pointer; user-select: none;
   }
+  .card.active { border-color: var(--accent); }
   .card b { font-size: 15px; }
   .card div { font-size: 12px; color: var(--muted); }
   .card div span { color: var(--text); font-variant-numeric: tabular-nums; }
@@ -56,31 +62,31 @@
 </head>
 <body>
 <main>
-  <h1>Opponent Lens</h1>
-  <div class="sub">搜索玩家，查看其近期 1v1 对手（按种族分组）的历史 MMR 轨迹 · SC2 Balance Observatory</div>
+  <div class="top">
+    <h1>Opponent Lens</h1>
+    <span class="lang" id="lang-toggle"></span>
+  </div>
+  <div class="sub" id="subtitle"></div>
 
   <div class="row">
-    <input id="q" placeholder="玩家名或 BattleTag，如 Serral" autofocus>
-    <button id="go">搜索</button>
+    <input id="q" autofocus>
+    <button id="go"></button>
   </div>
   <div id="status"></div>
 
   <section id="results">
     <table>
-      <thead><tr><th>角色</th><th>BattleTag</th><th>地区</th>
-        <th class="num">最高 MMR</th><th class="num">总场次</th></tr></thead>
+      <thead><tr id="results-head"></tr></thead>
       <tbody id="results-body"></tbody>
     </table>
   </section>
 
   <section id="detail">
     <h1 id="player-title"></h1>
-    <div class="sub" id="player-sub"></div>
     <div class="cards" id="cards"></div>
     <div id="chartwrap"><canvas id="chart"></canvas></div>
-    <table>
-      <thead><tr><th>对手</th><th>种族</th><th class="num">交手</th><th class="num">我方胜-负</th>
-        <th class="num">当前 MMR</th><th class="num">90 天 Δ</th></tr></thead>
+    <table id="opp-table">
+      <thead><tr id="opp-head"></tr></thead>
       <tbody id="opp-body"></tbody>
     </table>
   </section>
@@ -94,12 +100,58 @@ const API = 'https://sc2pulse.nephest.com/sc2/api';
 const RACES = { 1: 'TERRAN', 2: 'PROTOSS', 3: 'ZERG', 4: 'RANDOM' };
 const COLORS = { TERRAN: '#4f8fd1', PROTOSS: '#d4b23c', ZERG: '#9b59d0', RANDOM: '#8a9199' };
 const MAX_OPPONENTS = 30;
-const HISTORY_DAYS = 365;
+const HISTORY_DAYS = 30;
 
+const I18N = {
+  en: {
+    subtitle: 'Search a player to see recent 1v1 opponents’ MMR trends',
+    placeholder: 'Player name or BattleTag, e.g. Serral',
+    search: 'Search', searching: 'Searching…',
+    results: n => `${n} results, click to view`, noResults: 'No results',
+    loadingMatches: 'Loading matches…',
+    loadingHistories: (a, b) => `Loading opponent MMR history… ${a}/${b}`,
+    no1v1: 'No recent 1v1 matches',
+    chartFail: 'Chart library failed to load; the table below still works',
+    resultsHead: ['Character', 'BattleTag', 'Region', 'Max MMR', 'Games'],
+    card: (n, w, l, d) => `<div>Opponents <span>${n}</span>, record <span>${w}–${l}</span></div>
+      <div>Opp ${HISTORY_DAYS}d MMR Δ median <span>${d}</span></div>`,
+    oppHead: [['name', 'Opponent'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${HISTORY_DAYS}d Δ`]],
+    langLabel: '中文',
+  },
+  zh: {
+    subtitle: '搜索玩家，查看近期 1v1 对手的 MMR 变化',
+    placeholder: '玩家名或 BattleTag，如 Serral',
+    search: '搜索', searching: '搜索中…',
+    results: n => `${n} 个结果，点击查看`, noResults: '无结果',
+    loadingMatches: '拉取比赛记录…',
+    loadingHistories: (a, b) => `拉取对手 MMR 历史… ${a}/${b}`,
+    no1v1: '近期没有 1v1 比赛记录',
+    chartFail: '图表库加载失败，下方表格仍可用',
+    resultsHead: ['角色', 'BattleTag', '地区', '最高 MMR', '总场次'],
+    card: (n, w, l, d) => `<div>对手 <span>${n}</span> 人，战绩 <span>${w}–${l}</span></div>
+      <div>对手 ${HISTORY_DAYS} 天 MMR Δ 中位 <span>${d}</span></div>`,
+    oppHead: [['name', '对手'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${HISTORY_DAYS} 天 Δ`]],
+    langLabel: 'EN',
+  },
+};
+
+const state = { lang: 'en', opps: [], raceFilter: null, sortKey: 'faced', sortDir: -1 };
 const $ = id => document.getElementById(id);
+const t = () => I18N[state.lang];
 const status = msg => { $('status').textContent = msg || ''; };
 const esc = s => { const d = document.createElement('span'); d.textContent = s ?? ''; return d.innerHTML; };
+const fmtDelta = d => d === null ? '–' : (d > 0 ? '+' : '') + d;
 let chart = null;
+
+function applyLang() {
+  $('subtitle').textContent = t().subtitle;
+  $('q').placeholder = t().placeholder;
+  $('go').textContent = t().search;
+  $('lang-toggle').innerHTML = `<b>${t().langLabel}</b>`;
+  $('results-head').innerHTML = t().resultsHead
+    .map((h, i) => `<th class="${i >= 3 ? 'num' : ''}">${h}</th>`).join('');
+  if (state.opps.length) renderDetail();
+}
 
 async function get(path, params) {
   const url = API + path + '?' + new URLSearchParams(params);
@@ -111,7 +163,7 @@ async function get(path, params) {
 async function search() {
   const q = $('q').value.trim();
   if (!q) return;
-  status('搜索中…');
+  status(t().searching);
   $('detail').style.display = 'none';
   try {
     const found = await get('/characters', { query: q });
@@ -127,7 +179,7 @@ async function search() {
       body.appendChild(tr);
     }
     $('results').style.display = 'block';
-    status(found.length ? `${found.length} 个结果，点击查看` : '无结果');
+    status(found.length ? t().results(found.length) : t().noResults);
   } catch (e) { status(e.message); }
 }
 
@@ -163,7 +215,7 @@ async function fetchHistories(opps) {
   const byUid = new Map();
   for (let i = 0; i < opps.length; i += 10) {
     const chunk = opps.slice(i, i + 10).map(o => o.uid);
-    status(`拉取对手 MMR 历史… ${Math.min(i + 10, opps.length)}/${opps.length}`);
+    status(t().loadingHistories(Math.min(i + 10, opps.length), opps.length));
     const rows = await get('/team-histories', {
       teamLegacyUid: chunk.join(','), history: 'TIMESTAMP,RATING', from,
     });
@@ -184,75 +236,110 @@ function dailyLast(ts, rating) {
   return out;
 }
 
-function delta90(points) {
-  if (points.length < 2) return null;
-  const cutoff = Date.now() - 90 * 86400e3;
-  const base = points.find(p => p.x >= cutoff);
-  return base ? points[points.length - 1].y - base.y : null;
-}
+const delta = points => points.length > 1 ? points[points.length - 1].y - points[0].y : null;
 
 async function load(c) {
   const myId = c.members.character.id;
   $('results').style.display = 'none';
   $('detail').style.display = 'block';
   $('player-title').textContent = c.members.character.name.split('#')[0];
-  $('player-sub').textContent =
-    `${c.members.character.region} · 最高 MMR ${c.ratingMax ?? '–'} · 近期对手的历史 MMR 轨迹（近 ${HISTORY_DAYS} 天）`;
   $('cards').innerHTML = '';
   $('opp-body').innerHTML = '';
-  status('拉取比赛记录…');
+  state.opps = [];
+  state.raceFilter = null;
+  status(t().loadingMatches);
   try {
     const page = await get('/character-matches', { characterId: myId, type: '_1V1', limit: 100 });
     const opps = collectOpponents(page.result || [], myId);
-    if (!opps.length) { status('近期没有 1v1 比赛记录'); return; }
+    if (!opps.length) { status(t().no1v1); return; }
     const histories = await fetchHistories(opps);
-    render(opps, histories);
+    for (const o of opps) {
+      o.points = histories.get(o.uid) || [];
+      o.d30 = delta(o.points);
+      o.mmr = o.points.at(-1)?.y ?? o.rating ?? null;
+      o.wl = o.wins * 1000 - o.losses;
+    }
+    state.opps = opps;
+    renderDetail();
     status('');
   } catch (e) { status(e.message); }
 }
 
-function render(opps, histories) {
-  const byRace = {};
-  for (const o of opps) {
-    o.points = histories.get(o.uid) || [];
-    o.d90 = delta90(o.points);
-    (byRace[o.race] ??= []).push(o);
-  }
+function renderDetail() {
+  renderCards();
+  renderChart();
+  renderTable();
+}
 
+function renderCards() {
   const cards = $('cards');
+  cards.innerHTML = '';
   for (const race of ['TERRAN', 'PROTOSS', 'ZERG', 'RANDOM']) {
-    const group = byRace[race];
-    if (!group) continue;
+    const group = state.opps.filter(o => o.race === race);
+    if (!group.length) continue;
     const wins = group.reduce((s, o) => s + o.wins, 0);
     const losses = group.reduce((s, o) => s + o.losses, 0);
-    const deltas = group.map(o => o.d90).filter(d => d !== null).sort((a, b) => a - b);
-    const med = deltas.length ? deltas[deltas.length >> 1] : null;
+    const deltas = group.map(o => o.d30).filter(d => d !== null).sort((a, b) => a - b);
+    const med = deltas.length ? fmtDelta(deltas[deltas.length >> 1]) : '–';
     const el = document.createElement('div');
-    el.className = 'card';
-    el.innerHTML = `<b class="race ${race}">${race}</b>
-      <div>对手 <span>${group.length}</span> · 我方 <span>${wins}–${losses}</span></div>
-      <div>对手 90 天 MMR Δ 中位 <span>${med === null ? '–' : (med > 0 ? '+' : '') + med}</span></div>`;
+    el.className = 'card' + (state.raceFilter === race ? ' active' : '');
+    el.innerHTML = `<b class="race ${race}">${race}</b>` + t().card(group.length, wins, losses, med);
+    el.onclick = () => {
+      state.raceFilter = state.raceFilter === race ? null : race;
+      renderDetail();
+    };
     cards.appendChild(el);
   }
+}
+
+const filtered = () => state.raceFilter ? state.opps.filter(o => o.race === state.raceFilter) : state.opps;
+
+function renderTable() {
+  const head = $('opp-head');
+  head.innerHTML = t().oppHead
+    .map(([k, h], i) => {
+      const arrow = state.sortKey === k ? (state.sortDir > 0 ? ' ↑' : ' ↓') : '';
+      return `<th class="${i >= 2 ? 'num' : ''}" data-k="${k}">${h}${arrow}</th>`;
+    }).join('');
+  for (const th of head.querySelectorAll('th')) {
+    th.onclick = () => {
+      const k = th.dataset.k;
+      if (state.sortKey === k) state.sortDir *= -1;
+      else { state.sortKey = k; state.sortDir = -1; }
+      renderTable();
+    };
+  }
+
+  const rows = [...filtered()].sort((a, b) => {
+    const va = a[state.sortKey], vb = b[state.sortKey];
+    if (va === null) return 1;
+    if (vb === null) return -1;
+    return (typeof va === 'string' ? va.localeCompare(vb) : va - vb) * state.sortDir;
+  });
 
   const body = $('opp-body');
-  for (const o of [...opps].sort((a, b) => b.faced - a.faced)) {
+  body.innerHTML = '';
+  for (const o of rows) {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${esc(o.name)}${o.pro ? ` <span class="race ${o.race}">[${esc(o.pro)}]</span>` : ''}</td>
       <td class="race ${o.race}">${o.race[0]}</td>
       <td class="num">${o.faced}</td><td class="num">${o.wins}–${o.losses}</td>
-      <td class="num">${o.points.at(-1)?.y ?? o.rating ?? '–'}</td>
-      <td class="num">${o.d90 === null ? '–' : (o.d90 > 0 ? '+' : '') + o.d90}</td>`;
+      <td class="num">${o.mmr ?? '–'}</td>
+      <td class="num">${fmtDelta(o.d30)}</td>`;
     body.appendChild(tr);
   }
+}
 
-  if (typeof Chart === 'undefined') { status('图表库加载失败，数据表仍可用'); return; }
-  $('chartwrap').style.display = 'block';
+function renderChart() {
+  if (typeof Chart === 'undefined') { status(t().chartFail); return; }
+  const opps = filtered().filter(o => o.points.length > 1);
+  $('chartwrap').style.display = opps.length ? 'block' : 'none';
   chart?.destroy();
+  if (!opps.length) return;
   chart = new Chart($('chart'), {
     type: 'line',
     data: {
-      datasets: opps.filter(o => o.points.length > 1).map(o => ({
+      datasets: opps.map(o => ({
         label: `${o.name} (${o.race[0]})`,
         data: o.points,
         borderColor: COLORS[o.race] + 'b0',
@@ -294,6 +381,12 @@ function render(opps, histories) {
 
 $('go').onclick = search;
 $('q').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+$('lang-toggle').onclick = () => {
+  state.lang = state.lang === 'en' ? 'zh' : 'en';
+  document.documentElement.lang = state.lang === 'zh' ? 'zh-CN' : 'en';
+  applyLang();
+};
+applyLang();
 </script>
 </body>
 </html>
