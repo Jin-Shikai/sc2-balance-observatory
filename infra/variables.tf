@@ -12,6 +12,11 @@ variable "databricks_host" {
   type = string
 }
 
+variable "databricks_free_edition" {
+  type    = bool
+  default = false
+}
+
 variable "databricks_storage_credential_external_id" {
   description = "External ID from the Unity Catalog storage credential (two-phase apply, see README)"
   type        = string

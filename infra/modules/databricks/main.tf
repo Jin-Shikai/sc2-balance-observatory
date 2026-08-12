@@ -1,6 +1,9 @@
 locals {
   databricks_aws_account = "414351767826"
   role_name              = "${var.project}-uc-access"
+  full                   = var.free_edition ? 0 : 1
+
+  warehouse_id = var.free_edition ? data.databricks_sql_warehouse.starter[0].id : databricks_sql_endpoint.main[0].id
 }
 
 data "aws_caller_identity" "this" {}
@@ -49,32 +52,46 @@ data "aws_iam_policy_document" "uc_access" {
 }
 
 resource "aws_iam_role" "uc" {
+  count = local.full
+
   name               = local.role_name
   assume_role_policy = data.aws_iam_policy_document.uc_assume.json
 }
 
 resource "aws_iam_role_policy" "uc" {
-  role   = aws_iam_role.uc.id
+  count = local.full
+
+  role   = aws_iam_role.uc[0].id
   policy = data.aws_iam_policy_document.uc_access.json
 }
 
 resource "databricks_storage_credential" "raw" {
+  count = local.full
+
   name = "${var.project}-raw"
 
   aws_iam_role {
-    role_arn = aws_iam_role.uc.arn
+    role_arn = aws_iam_role.uc[0].arn
   }
 }
 
 resource "databricks_external_location" "raw" {
+  count = local.full
+
   name            = "${var.project}-raw"
   url             = "s3://${var.bucket}/raw"
-  credential_name = databricks_storage_credential.raw.name
+  credential_name = databricks_storage_credential.raw[0].name
 }
 
 resource "databricks_catalog" "sc2" {
   name    = "sc2"
   comment = "SC2 Balance Observatory"
+
+  # Free Edition catalogs are created in the UI with Default Storage;
+  # never let a storage_root diff force a replacement
+  lifecycle {
+    ignore_changes = [storage_root, properties, options]
+  }
 }
 
 resource "databricks_schema" "layer" {
@@ -84,7 +101,28 @@ resource "databricks_schema" "layer" {
   name         = each.key
 }
 
+# Free Edition: managed volume, synced from S3 manually.
+# Full mode: external volume over s3://<bucket>/raw — same /Volumes path either way.
+resource "databricks_volume" "raw" {
+  catalog_name     = databricks_catalog.sc2.name
+  schema_name      = databricks_schema.layer["bronze"].name
+  name             = "raw"
+  volume_type      = var.free_edition ? "MANAGED" : "EXTERNAL"
+  storage_location = var.free_edition ? null : "s3://${var.bucket}/raw"
+
+  depends_on = [databricks_external_location.raw]
+}
+
+# Free Edition allows exactly one warehouse: reuse the built-in starter
+data "databricks_sql_warehouse" "starter" {
+  count = var.free_edition ? 1 : 0
+
+  name = "Serverless Starter Warehouse"
+}
+
 resource "databricks_sql_endpoint" "main" {
+  count = local.full
+
   name                      = "${var.project}-wh"
   cluster_size              = "2X-Small"
   auto_stop_mins            = 5
@@ -106,11 +144,6 @@ resource "databricks_job" "medallion" {
     timezone_id            = "UTC"
   }
 
-  parameter {
-    name    = "raw_root"
-    default = "s3://${var.bucket}/raw"
-  }
-
   dynamic "task" {
     for_each = {
       bronze = { file = "databricks/sql/bronze.sql", depends = null }
@@ -122,7 +155,7 @@ resource "databricks_job" "medallion" {
       task_key = task.key
 
       sql_task {
-        warehouse_id = databricks_sql_endpoint.main.id
+        warehouse_id = local.warehouse_id
 
         file {
           path   = task.value.file

@@ -14,6 +14,7 @@ module "ingestion" {
 module "databricks" {
   source                         = "./modules/databricks"
   project                        = var.project
+  free_edition                   = var.databricks_free_edition
   bucket                         = module.storage.bucket_name
   bucket_arn                     = module.storage.bucket_arn
   storage_credential_external_id = var.databricks_storage_credential_external_id

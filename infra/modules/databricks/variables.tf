@@ -2,6 +2,12 @@ variable "project" {
   type = string
 }
 
+variable "free_edition" {
+  description = "Databricks Free Edition: reuse the starter warehouse, skip S3 storage credential, use a managed volume"
+  type        = bool
+  default     = false
+}
+
 variable "bucket" {
   type = string
 }
