@@ -41,6 +41,8 @@
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr.sel { cursor: pointer; }
   tr.sel:hover td { background: var(--panel); }
+  #opp-body td.plink { cursor: pointer; }
+  #opp-body td.plink:hover { text-decoration: underline; }
   .race { font-weight: 600; }
   .TERRAN { color: var(--terran); } .PROTOSS { color: var(--protoss); }
   .ZERG { color: var(--zerg); } .RANDOM { color: var(--random); }
@@ -83,6 +85,7 @@
 
   <section id="detail">
     <h1 id="player-title"></h1>
+    <div class="sub" id="player-delta"></div>
     <div class="cards" id="cards"></div>
     <div id="chartwrap"><canvas id="chart"></canvas></div>
     <table id="opp-table">
@@ -116,6 +119,7 @@ const I18N = {
     card: (n, w, l, d) => `<div>Opponents <span>${n}</span>, record <span>${w}–${l}</span></div>
       <div>Opp ${HISTORY_DAYS}d MMR Δ median <span>${d}</span></div>`,
     oppHead: [['name', 'Opponent'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${HISTORY_DAYS}d Δ`]],
+    myDelta: d => `${d} MMR in ${HISTORY_DAYS} days`,
     langLabel: '中文',
   },
   zh: {
@@ -131,11 +135,12 @@ const I18N = {
     card: (n, w, l, d) => `<div>对手 <span>${n}</span> 人，战绩 <span>${w}–${l}</span></div>
       <div>对手 ${HISTORY_DAYS} 天 MMR Δ 中位 <span>${d}</span></div>`,
     oppHead: [['name', '对手'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${HISTORY_DAYS} 天 Δ`]],
+    myDelta: d => `近 ${HISTORY_DAYS} 天 ${d} MMR`,
     langLabel: 'EN',
   },
 };
 
-const state = { lang: 'en', opps: [], raceFilter: null, sortKey: 'faced', sortDir: -1 };
+const state = { lang: 'en', opps: [], raceFilter: null, soloUid: null, sortKey: 'faced', sortDir: -1 };
 const $ = id => document.getElementById(id);
 const t = () => I18N[state.lang];
 const status = msg => { $('status').textContent = msg || ''; };
@@ -196,6 +201,7 @@ function collectOpponents(matches, myId) {
     const o = opps.get(uid) || {
       uid, race,
       name: (theirs.team.members[0]?.character.name || '?').split('#')[0],
+      characterId: theirs.team.members[0]?.character.id,
       pro: theirs.team.members[0]?.proNickname,
       rating: theirs.team.rating,
       faced: 0, wins: 0, losses: 0, lastDate: m.match.date,
@@ -246,19 +252,32 @@ async function load(c) {
   $('cards').innerHTML = '';
   $('opp-body').innerHTML = '';
   state.opps = [];
+  state.me = null;
   state.raceFilter = null;
+  state.soloUid = null;
   status(t().loadingMatches);
   try {
     const page = await get('/character-matches', { characterId: myId, type: '_1V1', limit: 100 });
-    const opps = collectOpponents(page.result || [], myId);
+    const matches = page.result || [];
+    const opps = collectOpponents(matches, myId);
     if (!opps.length) { status(t().no1v1); return; }
-    const histories = await fetchHistories(opps);
+
+    const myTeams = new Map();
+    for (const m of matches) {
+      const mine = m.participants.find(p => p.participant.playerCharacterId === myId);
+      if (mine?.team) myTeams.set(mine.team.legacyUid, (myTeams.get(mine.team.legacyUid) || 0) + 1);
+    }
+    const myUid = [...myTeams.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+
+    const histories = await fetchHistories(myUid ? [...opps, { uid: myUid }] : opps);
     for (const o of opps) {
       o.points = histories.get(o.uid) || [];
       o.d30 = delta(o.points);
       o.mmr = o.points.at(-1)?.y ?? o.rating ?? null;
       o.wl = o.wins * 1000 - o.losses;
     }
+    const myPoints = myUid ? histories.get(myUid) || [] : [];
+    state.me = { uid: myUid, name: c.members.character.name.split('#')[0], points: myPoints, d30: delta(myPoints) };
     state.opps = opps;
     renderDetail();
     status('');
@@ -266,6 +285,7 @@ async function load(c) {
 }
 
 function renderDetail() {
+  $('player-delta').textContent = state.me?.d30 != null ? t().myDelta(fmtDelta(state.me.d30)) : '';
   renderCards();
   renderChart();
   renderTable();
@@ -286,6 +306,7 @@ function renderCards() {
     el.innerHTML = `<b class="race ${race}">${race}</b>` + t().card(group.length, wins, losses, med);
     el.onclick = () => {
       state.raceFilter = state.raceFilter === race ? null : race;
+      state.soloUid = null;
       renderDetail();
     };
     cards.appendChild(el);
@@ -326,33 +347,86 @@ function renderTable() {
       <td class="num">${o.faced}</td><td class="num">${o.wins}–${o.losses}</td>
       <td class="num">${o.mmr ?? '–'}</td>
       <td class="num">${fmtDelta(o.d30)}</td>`;
+    if (o.characterId) {
+      tr.firstElementChild.classList.add('plink');
+      tr.firstElementChild.onclick = () => loadOpp(o);
+    }
     body.appendChild(tr);
   }
 }
 
+function loadOpp(o) {
+  $('q').value = o.name;
+  load({ members: { character: { id: o.characterId, name: o.name } } });
+}
+
+let hoverIdx = null;
+
 function renderChart() {
   if (typeof Chart === 'undefined') { status(t().chartFail); return; }
-  const opps = filtered().filter(o => o.points.length > 1);
-  $('chartwrap').style.display = opps.length ? 'block' : 'none';
+  let opps = filtered().filter(o => o.points.length > 1);
+  if (state.soloUid) {
+    const solo = opps.filter(o => o.uid === state.soloUid);
+    if (solo.length) opps = solo; else state.soloUid = null;
+  }
+  const datasets = opps.map(o => ({
+    label: `${o.name} (${o.race[0]})`,
+    uid: o.uid,
+    data: o.points,
+    baseColor: COLORS[o.race], baseAlpha: '73', baseWidth: 1.1,
+    borderColor: COLORS[o.race] + '73',
+    borderWidth: 1.1,
+    pointRadius: 0,
+    parsing: false,
+  }));
+  if (state.me?.points.length > 1) {
+    datasets.push({
+      label: state.me.name,
+      uid: state.me.uid,
+      data: state.me.points,
+      baseColor: '#e8eaed', baseAlpha: 'ff', baseWidth: 2.4,
+      borderColor: '#e8eaed',
+      borderWidth: 2.4,
+      pointRadius: 0,
+      parsing: false,
+    });
+  }
+  $('chartwrap').style.display = datasets.length ? 'block' : 'none';
   chart?.destroy();
-  if (!opps.length) return;
+  hoverIdx = null;
+  if (!datasets.length) return;
   chart = new Chart($('chart'), {
     type: 'line',
-    data: {
-      datasets: opps.map(o => ({
-        label: `${o.name} (${o.race[0]})`,
-        data: o.points,
-        borderColor: COLORS[o.race] + 'b0',
-        borderWidth: 1.2,
-        pointRadius: 0,
-        parsing: false,
-      })),
-    },
+    data: { datasets },
     options: {
       animation: false,
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: 'nearest', intersect: false },
+      onClick: (e, _els, ch) => {
+        const els = ch.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
+        if (!els.length) return;
+        const uid = ch.data.datasets[els[0].datasetIndex].uid;
+        if (uid === state.me?.uid) return;
+        state.soloUid = state.soloUid === uid ? null : uid;
+        renderChart();
+      },
+      onHover: (e, _els, ch) => {
+        const els = ch.getElementsAtEventForMode(e, 'nearest', { intersect: false }, true);
+        const idx = els.length ? els[0].datasetIndex : null;
+        if (idx === hoverIdx) return;
+        hoverIdx = idx;
+        ch.data.datasets.forEach((d, i) => {
+          if (idx === null) {
+            d.borderColor = d.baseColor + (d.baseAlpha === 'ff' ? '' : d.baseAlpha);
+            d.borderWidth = d.baseWidth;
+          } else {
+            d.borderColor = d.baseColor + (i === idx ? '' : '2e');
+            d.borderWidth = i === idx ? Math.max(d.baseWidth, 2.2) : d.baseWidth;
+          }
+        });
+        ch.update('none');
+      },
       plugins: {
         legend: { display: false },
         tooltip: {
