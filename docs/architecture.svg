@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 130" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <style>
+    .box { fill: none; stroke: #7d8590; stroke-width: 1; }
+    .t { fill: #7d8590; font-size: 12px; font-weight: 600; text-anchor: middle; }
+    .s { fill: #7d8590; font-size: 9.5px; text-anchor: middle; }
+    .a { stroke: #7d8590; stroke-width: 1; marker-end: url(#m); }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="#7d8590"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="8"   y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="64"  y="60">data sources</text>
+  <text class="s" x="64"  y="76">Pulse · Aligulac · Bnet</text>
+
+  <rect class="box" x="140" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="196" y="60">collectors</text>
+  <text class="s" x="196" y="76">Lambda, daily</text>
+
+  <rect class="box" x="272" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="328" y="60">raw store</text>
+  <text class="s" x="328" y="76">S3, JSON</text>
+
+  <rect class="box" x="404" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="460" y="60">sync</text>
+  <text class="s" x="460" y="76">Lambda, S3 event</text>
+
+  <rect class="box" x="536" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="592" y="54">warehouse</text>
+  <text class="s" x="592" y="70">Databricks, daily job</text>
+  <text class="s" x="592" y="84">bronze → silver → gold</text>
+
+  <rect class="box" x="668" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="724" y="60">export</text>
+  <text class="s" x="724" y="76">GitHub Actions, daily</text>
+
+  <rect class="box" x="800" y="34" width="112" height="62" rx="2"/>
+  <text class="t" x="856" y="60">site</text>
+  <text class="s" x="856" y="76">GitHub Pages</text>
+
+  <line class="a" x1="120" y1="65" x2="136" y2="65"/>
+  <line class="a" x1="252" y1="65" x2="268" y2="65"/>
+  <line class="a" x1="384" y1="65" x2="400" y2="65"/>
+  <line class="a" x1="516" y1="65" x2="532" y2="65"/>
+  <line class="a" x1="648" y1="65" x2="664" y2="65"/>
+  <line class="a" x1="780" y1="65" x2="796" y2="65"/>
+
+  <text class="s" x="460" y="118">everything on the AWS and Databricks side is defined in Terraform</text>
+</svg>
