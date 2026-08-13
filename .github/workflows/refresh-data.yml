@@ -1,0 +1,40 @@
+name: refresh-data
+
+on:
+  schedule:
+    - cron: "0 5 * * *" # after the 04:00 UTC medallion job
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      DATABRICKS_WAREHOUSE_ID: ${{ secrets.DATABRICKS_WAREHOUSE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: export gold tables
+        shell: pwsh
+        run: ./scripts/export-web-data.ps1
+      - name: commit if changed
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git add web/data
+          git diff --cached --quiet || git commit -m "data: daily refresh" && git push
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - uses: actions/deploy-pages@v4

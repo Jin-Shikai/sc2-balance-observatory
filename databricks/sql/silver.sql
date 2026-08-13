@@ -187,7 +187,9 @@ r3 AS (
   FROM r2, LATERAL variant_explode(r2.lv) tier
 )
 SELECT
-  snapshot_ts, season_bnet_id, region, league, tier,
+  snapshot_ts, season_bnet_id, region,
+  league_name(try_cast(league AS INT)) AS league,
+  try_cast(tier AS INT)                AS tier,
   variant_get(tv, '$[0]', 'INT') AS mmr_min,
   variant_get(tv, '$[1]', 'INT') AS mmr_max
 FROM r3

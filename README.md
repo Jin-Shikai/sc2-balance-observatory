@@ -33,9 +33,17 @@ web/            Opponent Lens 静态页（GitHub Pages，直连 SC2 Pulse API，
    aws secretsmanager put-secret-value --secret-id sc2obs/aligulac \
      --secret-string '{"apikey":"..."}'
    ```
-3. Unity Catalog storage credential 需要两阶段 apply：首次 apply 后读取 output
-   `storage_credential_external_id`，写入变量 `databricks_storage_credential_external_id` 再 apply 一次
-   （IAM trust policy 的 ExternalId 依赖 Databricks 生成的值）。
+3. Databricks 按版本二选一：
+   - **Free Edition**：tfvars 里设 `databricks_free_edition = true`。复用内置 Starter Warehouse
+     （Free Edition 只允许一个 warehouse），跳过 S3 挂载，原始数据走 managed volume
+     `/Volumes/sc2/bronze/raw`，需要手动同步：
+     ```
+     aws s3 sync s3://<raw桶>/raw ./raw
+     databricks fs cp -r ./raw dbfs:/Volumes/sc2/bronze/raw
+     ```
+   - **付费/试用 workspace**：Unity Catalog storage credential 需要两阶段 apply——首次 apply 后读取
+     output `storage_credential_external_id`，写入变量 `databricks_storage_credential_external_id`
+     再 apply 一次（IAM trust policy 的 ExternalId 依赖 Databricks 生成的值）。
 4. 历史回填：
    ```
    aws lambda invoke --function-name sc2obs-pulse_daily \
