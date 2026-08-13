@@ -49,7 +49,6 @@
       <span class="lang" id="lang-toggle"></span>
     </span>
   </div>
-  <div class="sub" id="subtitle"></div>
 
   <div class="controls">
     <div><label id="l-season"></label><select id="f-season"></select></div>
@@ -60,7 +59,6 @@
 
   <h2 id="h-heatmap"></h2>
   <table id="heatmap"></table>
-  <div class="note" id="n-heatmap"></div>
 
   <h2 id="h-length"></h2>
   <div class="chartbox"><canvas id="length-chart"></canvas></div>
@@ -80,15 +78,23 @@
 const M_COLORS = { PvT: '#2f6fa8', TvZ: '#6fb3d8', ZvP: '#b0508c' };
 const MATCHUPS = ['PvT', 'TvZ', 'ZvP'];
 const LEAGUES = ['DIAMOND', 'MASTER', 'GRANDMASTER'];
-const LEAGUE_LABEL = { DIAMOND: 'Diamond', MASTER: 'Master', GRANDMASTER: 'Grandmaster' };
+const LEAGUE_LABEL = {
+  en: { DIAMOND: 'Diamond', MASTER: 'Master', GRANDMASTER: 'Grandmaster' },
+  zh: { DIAMOND: '钻石', MASTER: '大师', GRANDMASTER: '宗师' },
+};
+const REGION_LABEL = {
+  en: { ALL: 'ALL', EU: 'EU', US: 'US', KR: 'KR' },
+  zh: { ALL: '全部', EU: '欧服', US: '美服', KR: '韩服' },
+};
+const leagueLabel = l => LEAGUE_LABEL[state.lang][l] ?? l;
+const regionLabel = r => REGION_LABEL[state.lang][r] ?? r;
 
 const I18N = {
   en: {
-    title: 'Balance Observatory', subtitle: 'SC2 ladder & pro balance, Diamond league and above',
+    title: 'Balance Observatory',
     season: 'Season', region: 'Region', league: 'League',
     updated: ts => `data updated ${ts}`,
     hHeatmap: 'Winrate by matchup × league',
-    nHeatmap: 'Winrate of the first race in the matchup. Blue = below 50%, gold = above.',
     hLength: 'Winrate by game length (minutes)',
     hDelta: 'Season-over-season winrate change',
     hPatch: 'Pro winrate shift, 28 days before vs after balance patches',
@@ -97,11 +103,10 @@ const I18N = {
     langLabel: '中文',
   },
   zh: {
-    title: 'Balance Observatory', subtitle: '星际2 天梯与职业平衡观测 · 钻石及以上',
+    title: 'Balance Observatory',
     season: '赛季', region: '地区', league: '段位',
     updated: ts => `数据更新于 ${ts}`,
     hHeatmap: '对阵胜率 × 段位',
-    nHeatmap: '数值为对阵中前一个种族的胜率。蓝 = 低于 50%，金 = 高于 50%。',
     hLength: '胜率 × 比赛时长（分钟）',
     hDelta: '赛季环比胜率变化',
     hPatch: '平衡补丁前后 28 天职业胜率变化',
@@ -126,11 +131,8 @@ async function boot() {
     fetch(`data/${f}.json`).then(r => r.ok ? r.json() : (f === 'meta' ? {} : []))));
   names.forEach((f, i) => data[f] = loaded[i]);
 
-  const seasons = [...new Set(data.profile.map(r => n(r.season_bnet_id)))].sort((a, b) => b - a);
-  state.season = seasons[0];
-  fillSelect('f-season', seasons.map(s => [s, s]), state.season);
-  fillSelect('f-region', ['ALL', 'EU', 'US', 'KR'].map(r => [r, r]), state.region);
-  fillSelect('f-league', LEAGUES.map(l => [l, LEAGUE_LABEL[l]]), state.league);
+  state.seasons = [...new Set(data.profile.map(r => n(r.season_bnet_id)))].sort((a, b) => b - a);
+  state.season = state.seasons[0];
   $('f-season').onchange = e => { state.season = +e.target.value; render(); };
   $('f-region').onchange = e => { state.region = e.target.value; render(); };
   $('f-league').onchange = e => { state.league = e.target.value; render(); };
@@ -142,19 +144,26 @@ function fillSelect(id, options, value) {
   $(id).value = value;
 }
 
+function refreshSelects() {
+  fillSelect('f-season', state.seasons.map(s => [s, s]), state.season);
+  fillSelect('f-region', ['ALL', 'EU', 'US', 'KR'].map(r => [r, regionLabel(r)]), state.region);
+  fillSelect('f-league', LEAGUES.map(l => [l, leagueLabel(l)]), state.league);
+}
+
 function applyLang() {
   $('title').textContent = t().title;
-  $('subtitle').textContent = t().subtitle;
   $('lang-toggle').innerHTML = `<b>${t().langLabel}</b>`;
   $('l-season').textContent = t().season;
   $('l-region').textContent = t().region;
   $('l-league').textContent = t().league;
   $('h-heatmap').textContent = t().hHeatmap;
-  $('n-heatmap').textContent = t().nHeatmap;
   $('h-length').textContent = t().hLength;
   $('h-delta').textContent = t().hDelta;
   $('h-patch').textContent = t().hPatch;
-  $('updated').textContent = data.meta?.generated_at ? t().updated(data.meta.generated_at) : '';
+  $('updated').textContent = data.meta?.generated_at
+    ? t().updated(data.meta.generated_at.replace('T', ' ').replace('Z', ''))
+    : '';
+  refreshSelects();
   render();
 }
 
@@ -179,7 +188,7 @@ function renderHeatmap() {
   let html = '<tr><th></th>' + MATCHUPS.map(m => `<th class="cell">${m}</th>`).join('') + '</tr>';
   for (const lg of LEAGUES) {
     const hl = lg === state.league ? ' style="color:var(--accent)"' : '';
-    html += `<tr><th${hl}>${LEAGUE_LABEL[lg]}</th>` + MATCHUPS.map(m => {
+    html += `<tr><th${hl}>${leagueLabel(lg)}</th>` + MATCHUPS.map(m => {
       const r = byKey.get(lg + '|' + m);
       if (!r) return '<td class="cell">–</td>';
       const w = n(r.winrate);
@@ -240,7 +249,7 @@ function renderDelta() {
   for (const r of rows) {
     const sig = r.delta_significant === 'true';
     html += `<tr${sig ? ' class="sig"' : ''} title="${r.patches_in_season ?? ''}">
-      <td>${n(r.season_bnet_id)}</td><td>${r.region}</td><td>${LEAGUE_LABEL[r.league]}</td><td>${r.matchup}</td>
+      <td>${n(r.season_bnet_id)}</td><td>${regionLabel(r.region)}</td><td>${leagueLabel(r.league)}</td><td>${r.matchup}</td>
       <td class="num">${r.winrate_prev_pct}</td><td class="num">${r.winrate_cur_pct}</td>
       <td class="num">${fmtD(n(r.delta_pct))}</td></tr>`;
   }
