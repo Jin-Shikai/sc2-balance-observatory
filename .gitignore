@@ -8,5 +8,8 @@ __pycache__/
 build/
 dist/
 .venv/
+/raw/
+out.json
+payload.json
 docs*
 raw/
