@@ -61,7 +61,9 @@
   .card div { font-size: 12px; color: var(--muted); }
   .card div span { color: var(--text); font-variant-numeric: tabular-nums; }
   #chartwrap { background: var(--panel); border: 1px solid var(--border); border-radius: 3px;
-    padding: 10px; height: 420px; display: none; }
+    padding: 10px; height: 420px; display: none; position: relative; }
+  #chart-reset { position: absolute; top: 10px; right: 10px; z-index: 2;
+    display: none; padding: 3px 10px; font-size: 12px; }
   footer { color: var(--muted); font-size: 11px; margin: 20px 0; }
   footer a { color: var(--muted); }
   section { display: none; }
@@ -90,9 +92,9 @@
 
   <section id="detail">
     <h1 id="player-title"></h1>
-    <div class="sub" id="player-delta"></div>
+    <div class="sub"><span id="player-delta"></span><span class="lang" id="days-toggle" style="margin-left: 12px"></span></div>
     <div class="cards" id="cards"></div>
-    <div id="chartwrap"><canvas id="chart"></canvas></div>
+    <div id="chartwrap"><button id="chart-reset"></button><canvas id="chart"></canvas></div>
     <table id="opp-table">
       <thead><tr id="opp-head"></tr></thead>
       <tbody id="opp-body"></tbody>
@@ -108,7 +110,6 @@ const API = 'https://sc2pulse.nephest.com/sc2/api';
 const RACES = { 1: 'TERRAN', 2: 'PROTOSS', 3: 'ZERG', 4: 'RANDOM' };
 const COLORS = { TERRAN: '#4f8fd1', PROTOSS: '#d4b23c', ZERG: '#9b59d0', RANDOM: '#8a9199' };
 const MAX_OPPONENTS = 30;
-const HISTORY_DAYS = 30;
 
 const I18N = {
   en: {
@@ -120,11 +121,12 @@ const I18N = {
     loadingHistories: (a, b) => `Loading opponent MMR history… ${a}/${b}`,
     no1v1: 'No recent 1v1 matches',
     chartFail: 'Chart library failed to load; the table below still works',
+    reset: 'Reset',
     resultsHead: ['Character', 'BattleTag', 'Region', 'Max MMR', 'Games'],
     card: (n, w, l, d) => `<div>Opponents <span>${n}</span>, record <span>${w}–${l}</span></div>
-      <div>Opp ${HISTORY_DAYS}d MMR Δ median <span>${d}</span></div>`,
-    oppHead: [['name', 'Opponent'], ['btag', 'BattleTag'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${HISTORY_DAYS}d Δ`]],
-    myDelta: d => `${d} MMR in ${HISTORY_DAYS} days`,
+      <div>Opp ${state.days}d MMR Δ median <span>${d}</span></div>`,
+    oppHead: () => [['name', 'Opponent'], ['btag', 'BattleTag'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${state.days}d Δ`]],
+    myDelta: d => `${d} MMR in ${state.days} days`,
     langLabel: '中文',
   },
   zh: {
@@ -136,16 +138,17 @@ const I18N = {
     loadingHistories: (a, b) => `拉取对手 MMR 历史… ${a}/${b}`,
     no1v1: '近期没有 1v1 比赛记录',
     chartFail: '图表库加载失败，下方表格仍可用',
+    reset: '重置',
     resultsHead: ['角色', 'BattleTag', '地区', '最高 MMR', '总场次'],
     card: (n, w, l, d) => `<div>对手 <span>${n}</span> 人，战绩 <span>${w}–${l}</span></div>
-      <div>对手 ${HISTORY_DAYS} 天 MMR Δ 中位 <span>${d}</span></div>`,
-    oppHead: [['name', '对手'], ['btag', 'BattleTag'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${HISTORY_DAYS} 天 Δ`]],
-    myDelta: d => `近 ${HISTORY_DAYS} 天 ${d} MMR`,
+      <div>对手 ${state.days} 天 MMR Δ 中位 <span>${d}</span></div>`,
+    oppHead: () => [['name', '对手'], ['btag', 'BattleTag'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${state.days} 天 Δ`]],
+    myDelta: d => `近 ${state.days} 天 ${d} MMR`,
     langLabel: 'EN',
   },
 };
 
-const state = { lang: 'en', opps: [], raceFilter: null, soloUid: null, sortKey: 'faced', sortDir: -1 };
+const state = { lang: 'en', days: 30, char: null, opps: [], raceFilter: null, soloUid: null, sortKey: 'faced', sortDir: -1 };
 const $ = id => document.getElementById(id);
 const t = () => I18N[state.lang];
 const status = msg => { $('status').textContent = msg || ''; };
@@ -223,7 +226,7 @@ function collectOpponents(matches, myId) {
 }
 
 async function fetchHistories(opps) {
-  const from = new Date(Date.now() - HISTORY_DAYS * 86400e3).toISOString();
+  const from = new Date(Date.now() - state.days * 86400e3).toISOString();
   const byUid = new Map();
   for (let i = 0; i < opps.length; i += 10) {
     const chunk = opps.slice(i, i + 10).map(o => o.uid);
@@ -251,6 +254,7 @@ function dailyLast(ts, rating) {
 const delta = points => points.length > 1 ? points[points.length - 1].y - points[0].y : null;
 
 async function load(c) {
+  state.char = c;
   const myId = c.members.character.id;
   $('results').style.display = 'none';
   $('detail').style.display = 'block';
@@ -293,6 +297,7 @@ async function load(c) {
 
 function renderDetail() {
   $('player-delta').textContent = state.me?.d30 != null ? t().myDelta(fmtDelta(state.me.d30)) : '';
+  $('days-toggle').innerHTML = state.days === 30 ? '<b>30d</b> · 90d' : '30d · <b>90d</b>';
   renderCards();
   renderChart();
   renderTable();
@@ -324,7 +329,7 @@ const filtered = () => state.raceFilter ? state.opps.filter(o => o.race === stat
 
 function renderTable() {
   const head = $('opp-head');
-  head.innerHTML = t().oppHead
+  head.innerHTML = t().oppHead()
     .map(([k, h], i) => {
       const arrow = state.sortKey === k ? (state.sortDir > 0 ? ' ↑' : ' ↓') : '';
       return `<th class="${i >= 3 ? 'num' : ''}" data-k="${k}">${h}${arrow}</th>`;
@@ -391,6 +396,7 @@ function renderChart() {
     datasets.push({
       label: state.me.name,
       uid: state.me.uid,
+      me: true,
       data: state.me.points,
       baseColor: '#e8eaed', baseAlpha: 'ff', baseWidth: 2.4,
       borderColor: '#e8eaed',
@@ -400,6 +406,8 @@ function renderChart() {
     });
   }
   $('chartwrap').style.display = datasets.length ? 'block' : 'none';
+  $('chart-reset').textContent = t().reset;
+  $('chart-reset').style.display = state.soloUid ? 'block' : 'none';
   chart?.destroy();
   hoverIdx = null;
   if (!datasets.length) return;
@@ -412,11 +420,11 @@ function renderChart() {
       maintainAspectRatio: false,
       interaction: { mode: 'nearest', intersect: false },
       onClick: (e, _els, ch) => {
-        const els = ch.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
+        const els = ch.getElementsAtEventForMode(e, 'nearest', { intersect: false }, true);
         if (!els.length) return;
-        const uid = ch.data.datasets[els[0].datasetIndex].uid;
-        if (uid === state.me?.uid) return;
-        state.soloUid = state.soloUid === uid ? null : uid;
+        const d = ch.data.datasets[els[0].datasetIndex];
+        if (d.me) return;
+        state.soloUid = state.soloUid === d.uid ? null : d.uid;
         renderChart();
       },
       onHover: (e, _els, ch) => {
@@ -425,7 +433,7 @@ function renderChart() {
         if (idx === hoverIdx) return;
         hoverIdx = idx;
         ch.data.datasets.forEach((d, i) => {
-          if (idx === null) {
+          if (d.me || idx === null) {
             d.borderColor = d.baseColor + (d.baseAlpha === 'ff' ? '' : d.baseAlpha);
             d.borderWidth = d.baseWidth;
           } else {
@@ -463,6 +471,14 @@ function renderChart() {
 
 $('go').onclick = search;
 $('q').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+$('chart-reset').onclick = () => {
+  state.soloUid = null;
+  renderChart();
+};
+$('days-toggle').onclick = () => {
+  state.days = state.days === 30 ? 90 : 30;
+  if (state.char) load(state.char);
+};
 $('lang-toggle').onclick = () => {
   state.lang = state.lang === 'en' ? 'zh' : 'en';
   document.documentElement.lang = state.lang === 'zh' ? 'zh-CN' : 'en';
