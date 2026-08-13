@@ -16,7 +16,7 @@ Stack: AWS Lambda · S3 · EventBridge · Terraform · Databricks · GitHub Acti
 
 Four views, with season / region / league filters and an EN–中文 toggle:
 
-- Winrate heatmap by matchup and league. Each cell is the first race's winrate; blue means below 50%, gold above.
+- Winrate heatmap by matchup and league.
 - Winrate by game length. Frames from SC2 Pulse bucket each game by the minute it ended, so the lines show how balance shifts from early to late game.
 - Season-over-season winrate change, sortable, with the season's balance patches on hover. Bold rows pass a two-proportion z-test.
 - Pro winrate change in the 28 days before vs after each balance patch (Aligulac matches). Solid bars are statistically significant.
