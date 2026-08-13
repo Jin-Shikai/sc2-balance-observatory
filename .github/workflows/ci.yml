@@ -30,6 +30,15 @@ jobs:
       - run: terraform -chdir=infra init -backend=false
       - run: terraform -chdir=infra validate
 
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: cd web && npm install && npm run check
+
   deploy:
     # skipped until OIDC deploy variables are configured (see README)
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.AWS_DEPLOY_ROLE_ARN != ''

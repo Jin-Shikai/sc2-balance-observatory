@@ -11,5 +11,7 @@ dist/
 /raw/
 out.json
 payload.json
+node_modules/
+web/dist/
 docs-*
 raw/

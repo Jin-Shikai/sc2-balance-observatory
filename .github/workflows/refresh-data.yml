@@ -25,6 +25,10 @@ jobs:
       DATABRICKS_WAREHOUSE_ID: ${{ secrets.DATABRICKS_WAREHOUSE_ID }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: cd web && npm install && npm run build && rm -rf node_modules
       - name: export gold tables
         shell: pwsh
         run: ./scripts/export-web-data.ps1
