@@ -18,8 +18,13 @@
   main { max-width: 1100px; margin: 0 auto; padding: 16px; }
   .top { display: flex; justify-content: space-between; align-items: baseline; }
   h1 { font-size: 16px; font-weight: 600; margin: 8px 0 2px; }
+  h1 .btag { color: var(--muted); font-size: 12px; font-weight: 400; margin-left: 8px; }
+  td .btag { color: var(--muted); }
   .lang { color: var(--muted); font-size: 12px; cursor: pointer; user-select: none; }
   .lang b { color: var(--text); }
+  .nav { font-size: 12px; }
+  .nav a { color: var(--muted); text-decoration: none; margin-right: 14px; }
+  .nav a:hover { color: var(--text); }
   .sub { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
   .row { display: flex; gap: 8px; }
   input {
@@ -66,7 +71,7 @@
 <main>
   <div class="top">
     <h1>Opponent Lens</h1>
-    <span class="lang" id="lang-toggle"></span>
+    <span class="nav"><a href="balance.html">Balance</a> <span class="lang" id="lang-toggle"></span></span>
   </div>
   <div class="sub" id="subtitle"></div>
 
@@ -118,7 +123,7 @@ const I18N = {
     resultsHead: ['Character', 'BattleTag', 'Region', 'Max MMR', 'Games'],
     card: (n, w, l, d) => `<div>Opponents <span>${n}</span>, record <span>${w}–${l}</span></div>
       <div>Opp ${HISTORY_DAYS}d MMR Δ median <span>${d}</span></div>`,
-    oppHead: [['name', 'Opponent'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${HISTORY_DAYS}d Δ`]],
+    oppHead: [['name', 'Opponent'], ['btag', 'BattleTag'], ['race', 'Race'], ['faced', 'Met'], ['wl', 'W–L'], ['mmr', 'MMR'], ['d30', `${HISTORY_DAYS}d Δ`]],
     myDelta: d => `${d} MMR in ${HISTORY_DAYS} days`,
     langLabel: '中文',
   },
@@ -134,7 +139,7 @@ const I18N = {
     resultsHead: ['角色', 'BattleTag', '地区', '最高 MMR', '总场次'],
     card: (n, w, l, d) => `<div>对手 <span>${n}</span> 人，战绩 <span>${w}–${l}</span></div>
       <div>对手 ${HISTORY_DAYS} 天 MMR Δ 中位 <span>${d}</span></div>`,
-    oppHead: [['name', '对手'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${HISTORY_DAYS} 天 Δ`]],
+    oppHead: [['name', '对手'], ['btag', 'BattleTag'], ['race', '种族'], ['faced', '交手'], ['wl', '胜–负'], ['mmr', '当前 MMR'], ['d30', `${HISTORY_DAYS} 天 Δ`]],
     myDelta: d => `近 ${HISTORY_DAYS} 天 ${d} MMR`,
     langLabel: 'EN',
   },
@@ -201,6 +206,7 @@ function collectOpponents(matches, myId) {
     const o = opps.get(uid) || {
       uid, race,
       name: (theirs.team.members[0]?.character.name || '?').split('#')[0],
+      btag: theirs.team.members[0]?.account?.battleTag || '',
       characterId: theirs.team.members[0]?.character.id,
       pro: theirs.team.members[0]?.proNickname,
       rating: theirs.team.rating,
@@ -248,7 +254,8 @@ async function load(c) {
   const myId = c.members.character.id;
   $('results').style.display = 'none';
   $('detail').style.display = 'block';
-  $('player-title').textContent = c.members.character.name.split('#')[0];
+  $('player-title').innerHTML = esc(c.members.character.name.split('#')[0]) +
+    (c.members.account?.battleTag ? ` <span class="btag">${esc(c.members.account.battleTag)}</span>` : '');
   $('cards').innerHTML = '';
   $('opp-body').innerHTML = '';
   state.opps = [];
@@ -320,7 +327,7 @@ function renderTable() {
   head.innerHTML = t().oppHead
     .map(([k, h], i) => {
       const arrow = state.sortKey === k ? (state.sortDir > 0 ? ' ↑' : ' ↓') : '';
-      return `<th class="${i >= 2 ? 'num' : ''}" data-k="${k}">${h}${arrow}</th>`;
+      return `<th class="${i >= 3 ? 'num' : ''}" data-k="${k}">${h}${arrow}</th>`;
     }).join('');
   for (const th of head.querySelectorAll('th')) {
     th.onclick = () => {
@@ -343,6 +350,7 @@ function renderTable() {
   for (const o of rows) {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${esc(o.name)}${o.pro ? ` <span class="race ${o.race}">[${esc(o.pro)}]</span>` : ''}</td>
+      <td><span class="btag">${esc(o.btag)}</span></td>
       <td class="race ${o.race}">${o.race[0]}</td>
       <td class="num">${o.faced}</td><td class="num">${o.wins}–${o.losses}</td>
       <td class="num">${o.mmr ?? '–'}</td>
@@ -357,7 +365,7 @@ function renderTable() {
 
 function loadOpp(o) {
   $('q').value = o.name;
-  load({ members: { character: { id: o.characterId, name: o.name } } });
+  load({ members: { character: { id: o.characterId, name: o.name }, account: { battleTag: o.btag } } });
 }
 
 let hoverIdx = null;

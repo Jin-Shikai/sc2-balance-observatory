@@ -1,0 +1,164 @@
+[
+  {
+    "version": "5.0.11",
+    "release_ts": "2023-01-23T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "-3.4",
+    "delta_significant": "false",
+    "games_pre": "176",
+    "games_post": "333"
+  },
+  {
+    "version": "5.0.11",
+    "release_ts": "2023-01-23T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "-2.2",
+    "delta_significant": "false",
+    "games_pre": "153",
+    "games_post": "242"
+  },
+  {
+    "version": "5.0.11",
+    "release_ts": "2023-01-23T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "5.7",
+    "delta_significant": "false",
+    "games_pre": "281",
+    "games_post": "406"
+  },
+  {
+    "version": "5.0.12",
+    "release_ts": "2023-10-02T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "1.3",
+    "delta_significant": "false",
+    "games_pre": "460",
+    "games_post": "458"
+  },
+  {
+    "version": "5.0.12",
+    "release_ts": "2023-10-02T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "3.5",
+    "delta_significant": "false",
+    "games_pre": "398",
+    "games_post": "421"
+  },
+  {
+    "version": "5.0.12",
+    "release_ts": "2023-10-02T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "1.0",
+    "delta_significant": "false",
+    "games_pre": "259",
+    "games_post": "280"
+  },
+  {
+    "version": "5.0.13",
+    "release_ts": "2024-03-26T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "0.5",
+    "delta_significant": "false",
+    "games_pre": "312",
+    "games_post": "418"
+  },
+  {
+    "version": "5.0.13",
+    "release_ts": "2024-03-26T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "-1.9",
+    "delta_significant": "false",
+    "games_pre": "194",
+    "games_post": "265"
+  },
+  {
+    "version": "5.0.13",
+    "release_ts": "2024-03-26T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "11.8",
+    "delta_significant": "true",
+    "games_pre": "371",
+    "games_post": "449"
+  },
+  {
+    "version": "5.0.14",
+    "release_ts": "2024-11-25T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "-6.6",
+    "delta_significant": "false",
+    "games_pre": "268",
+    "games_post": "237"
+  },
+  {
+    "version": "5.0.14",
+    "release_ts": "2024-11-25T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "-2.0",
+    "delta_significant": "false",
+    "games_pre": "300",
+    "games_post": "262"
+  },
+  {
+    "version": "5.0.14",
+    "release_ts": "2024-11-25T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "-1.9",
+    "delta_significant": "false",
+    "games_pre": "177",
+    "games_post": "156"
+  },
+  {
+    "version": "5.0.15",
+    "release_ts": "2025-10-01T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "1.2",
+    "delta_significant": "false",
+    "games_pre": "209",
+    "games_post": "264"
+  },
+  {
+    "version": "5.0.15",
+    "release_ts": "2025-10-01T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "-5.9",
+    "delta_significant": "false",
+    "games_pre": "111",
+    "games_post": "152"
+  },
+  {
+    "version": "5.0.15",
+    "release_ts": "2025-10-01T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "-7.8",
+    "delta_significant": "true",
+    "games_pre": "283",
+    "games_post": "375"
+  },
+  {
+    "version": "5.0.16",
+    "release_ts": "2026-06-23T00:00:00Z",
+    "matchup": "ZvP",
+    "delta_pct": "8.4",
+    "delta_significant": "false",
+    "games_pre": "196",
+    "games_post": "238"
+  },
+  {
+    "version": "5.0.16",
+    "release_ts": "2026-06-23T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "-1.2",
+    "delta_significant": "false",
+    "games_pre": "260",
+    "games_post": "244"
+  },
+  {
+    "version": "5.0.16",
+    "release_ts": "2026-06-23T00:00:00Z",
+    "matchup": "TvZ",
+    "delta_pct": "-4.4",
+    "delta_significant": "false",
+    "games_pre": "184",
+    "games_post": "231"
+  }
+]

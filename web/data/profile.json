@@ -1,0 +1,1442 @@
+[
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5249687890137328",
+    "games": "1602"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5488056013179572",
+    "games": "9712"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4842890809112333",
+    "games": "2546"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5679083094555873",
+    "games": "1745"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5211282516636419",
+    "games": "66120"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5056848944233893",
+    "games": "1847"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5329815303430079",
+    "games": "379"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.47533632286995514",
+    "games": "1115"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5278891115564462",
+    "games": "5988"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.522920892494929",
+    "games": "7395"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5187431091510474",
+    "games": "1814"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5247675870681282",
+    "games": "7207"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5116853632478633",
+    "games": "14976"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5365221000207512",
+    "games": "19276"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5174100196026918",
+    "games": "49483"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4949664429530201",
+    "games": "1788"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5254660131063441",
+    "games": "56919"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.516726155889433",
+    "games": "12047"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5473251028806584",
+    "games": "729"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5760598503740648",
+    "games": "2406"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5151718699804329",
+    "games": "34241"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5018820577164367",
+    "games": "6376"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5298109991782572",
+    "games": "32857"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4817836812144213",
+    "games": "5270"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5430155210643015",
+    "games": "4510"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.520703125",
+    "games": "2560"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.49677908298597956",
+    "games": "2639"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5599714633928837",
+    "games": "33641"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5055446836268754",
+    "games": "1533"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.47776628748707345",
+    "games": "967"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4995660260384377",
+    "games": "8065"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.542577943229409",
+    "games": "2149"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4314096499526963",
+    "games": "2114"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5347107438016528",
+    "games": "1210"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5413870246085011",
+    "games": "447"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5329457364341085",
+    "games": "516"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5208509609573311",
+    "games": "8273"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4803680981595092",
+    "games": "1630"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5194907124792884",
+    "games": "11467"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.545156591405681",
+    "games": "2746"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5065713921143294",
+    "games": "15674"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.537482399324134",
+    "games": "17755"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5308868246761361",
+    "games": "48014"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5026394921483461",
+    "games": "59860"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5615887380593263",
+    "games": "1989"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.48936170212765956",
+    "games": "1457"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5258964143426295",
+    "games": "1255"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5225030004000534",
+    "games": "29996"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4730077120822622",
+    "games": "1556"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48706467661691544",
+    "games": "2010"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5644637053087758",
+    "games": "923"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.48166978860048165",
+    "games": "11211"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5089562289562289",
+    "games": "14850"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5124295418413065",
+    "games": "13838"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5266544117647058",
+    "games": "23936"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.542761940022214",
+    "games": "2701"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5263400257874379",
+    "games": "10858"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.47905559786747903",
+    "games": "1313"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5342770126611374",
+    "games": "52207"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5371287128712872",
+    "games": "404"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.455012853470437",
+    "games": "389"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5555555555555556",
+    "games": "2412"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.43034055727554177",
+    "games": "969"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5024261138067931",
+    "games": "6801"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5150396060800685",
+    "games": "37368"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5341977946413222",
+    "games": "40719"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5104214489027638",
+    "games": "10891"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5375023264470501",
+    "games": "21492"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5324468085106383",
+    "games": "9400"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48025528520143596",
+    "games": "2507"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.528505061897473",
+    "games": "37239"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5117099195225608",
+    "games": "11059"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.49014276002719237",
+    "games": "2942"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5161883094154708",
+    "games": "57140"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.54191336865067",
+    "games": "3209"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.40680272108843535",
+    "games": "1470"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5312024353120244",
+    "games": "24309"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5360420226567939",
+    "games": "15801"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4795763993948563",
+    "games": "1322"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5035672452347992",
+    "games": "9391"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5100095982448923",
+    "games": "14586"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5375842405391394",
+    "games": "1929"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5289256198347108",
+    "games": "1815"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5064599483204134",
+    "games": "387"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.51522692468328",
+    "games": "57464"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5032831046384376",
+    "games": "23758"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5224111282843895",
+    "games": "6470"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5026711185308848",
+    "games": "5990"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5154811715481171",
+    "games": "1195"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5032143246286275",
+    "games": "27533"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5220700152207002",
+    "games": "1971"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4823699421965318",
+    "games": "3460"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48228713486637664",
+    "games": "1609"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5084745762711864",
+    "games": "1062"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5454134658834162",
+    "games": "2213"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5330945365609413",
+    "games": "51927"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5480899638336347",
+    "games": "17696"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5131042643642898",
+    "games": "45634"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5291861067910835",
+    "games": "38580"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5333333333333333",
+    "games": "1770"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5310850640893824",
+    "games": "14589"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5239655381628443",
+    "games": "16482"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.49698795180722893",
+    "games": "996"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5050583657587548",
+    "games": "6425"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5568569181015646",
+    "games": "11441"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4934480887027991",
+    "games": "12897"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5031213555601289",
+    "games": "14577"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.49010717230008244",
+    "games": "2426"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48700253048079134",
+    "games": "4347"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5190445448676565",
+    "games": "1549"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5546727203934922",
+    "games": "7929"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.49633389734912575",
+    "games": "1773"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "US",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5318396789757799",
+    "games": "62799"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4972791963164504",
+    "games": "2389"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "US",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48377862595419846",
+    "games": "1048"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.523939304655274",
+    "games": "13576"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5024990744168827",
+    "games": "10804"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5189620758483033",
+    "games": "501"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "US",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.49981502034776176",
+    "games": "2703"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5179356906604835",
+    "games": "58654"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "EU",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.49232379623168177",
+    "games": "14330"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5016064402007148",
+    "games": "27701"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.48883225903162947",
+    "games": "6671"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5177834764187758",
+    "games": "8969"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5440806045340051",
+    "games": "1191"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4923391215526047",
+    "games": "1958"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5483733786944504",
+    "games": "4703"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4831288343558282",
+    "games": "3260"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5245495223122506",
+    "games": "49614"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "EU",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5042016806722689",
+    "games": "1904"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5322530959275461",
+    "games": "16231"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5764902042517716",
+    "games": "2399"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "KR",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5071393402264894",
+    "games": "4062"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "EU",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5317850483132734",
+    "games": "5899"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "KR",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5488721804511278",
+    "games": "399"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5259702950386395",
+    "games": "69618"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5093457943925234",
+    "games": "1284"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5198656966983771",
+    "games": "37527"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5425065731814198",
+    "games": "20538"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5252713950640348",
+    "games": "144531"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.5077335661718847",
+    "games": "32068"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.47197254453342047",
+    "games": "6119"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4686221009549795",
+    "games": "2932"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5260596546310832",
+    "games": "6370"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.517342849987478",
+    "games": "15972"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.50540989047461",
+    "games": "60260"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4898283534647171",
+    "games": "6292"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.49973594240764935",
+    "games": "35977"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.509013570994531",
+    "games": "4937"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4987939048067306",
+    "games": "16997"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5549960660896932",
+    "games": "6355"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5074297534907775",
+    "games": "145025"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.48289345063538613",
+    "games": "4092"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5153761726273064",
+    "games": "96578"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5216815058747002",
+    "games": "122985"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5432225063938619",
+    "games": "5865"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "ZvP",
+    "winrate": "0.498825601879037",
+    "games": "27248"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.48068977905514637",
+    "games": "5567"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5201262197708952",
+    "games": "37712"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5298336886337225",
+    "games": "129937"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5409041980624327",
+    "games": "3716"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5348837209302325",
+    "games": "12427"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5219543693499785",
+    "games": "4646"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5515456506110712",
+    "games": "6955"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5014571331751948",
+    "games": "14755"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5329111516385647",
+    "games": "89377"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.5326834049028332",
+    "games": "155094"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5068586174113813",
+    "games": "29452"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "TvZ",
+    "winrate": "0.526566300829359",
+    "games": "104418"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5450391644908616",
+    "games": "1532"
+  },
+  {
+    "season_bnet_id": "64",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "TvZ",
+    "winrate": "0.49177293294940355",
+    "games": "4862"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "ZvP",
+    "winrate": "0.5271030511615593",
+    "games": "15109"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4921249677252776",
+    "games": "3873"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.5083754871879924",
+    "games": "24118"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "ZvP",
+    "winrate": "0.4941094941094941",
+    "games": "7215"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "TvZ",
+    "winrate": "0.4917573572026531",
+    "games": "31058"
+  },
+  {
+    "season_bnet_id": "68",
+    "region": "ALL",
+    "league": "GRANDMASTER",
+    "matchup": "PvT",
+    "winrate": "0.5228464419475656",
+    "games": "1335"
+  },
+  {
+    "season_bnet_id": "67",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5329918372611524",
+    "games": "108542"
+  },
+  {
+    "season_bnet_id": "65",
+    "region": "ALL",
+    "league": "DIAMOND",
+    "matchup": "PvT",
+    "winrate": "0.5363341276244441",
+    "games": "53297"
+  },
+  {
+    "season_bnet_id": "66",
+    "region": "ALL",
+    "league": "MASTER",
+    "matchup": "PvT",
+    "winrate": "0.5241547708489858",
+    "games": "26620"
+  }
+]
