@@ -70,10 +70,9 @@
 
   <h2 id="h-patch"></h2>
   <div class="chartbox"><canvas id="patch-chart"></canvas></div>
-  <div class="note" id="n-patch"></div>
 
   <footer>Data: <a href="https://sc2pulse.nephest.com/sc2/">SC2 Pulse</a> ·
-    <a href="https://aligulac.com/">Aligulac</a> (non-commercial). Not affiliated with Blizzard.</footer>
+    <a href="https://aligulac.com/">Aligulac</a>. Not affiliated with Blizzard.</footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3"></script>
@@ -93,7 +92,6 @@ const I18N = {
     hLength: 'Winrate by game length (minutes)',
     hDelta: 'Season-over-season winrate change',
     hPatch: 'Pro winrate shift, 28 days before vs after balance patches',
-    nPatch: 'Aligulac pro matches. Solid = statistically significant (z-test, α=0.05).',
     deltaHead: [['season_bnet_id', 'Season'], ['region', 'Region'], ['league', 'League'], ['matchup', 'Matchup'],
       ['winrate_prev_pct', 'Prev %'], ['winrate_cur_pct', 'Cur %'], ['delta_pct', 'Δ pp']],
     langLabel: '中文',
@@ -107,7 +105,6 @@ const I18N = {
     hLength: '胜率 × 比赛时长（分钟）',
     hDelta: '赛季环比胜率变化',
     hPatch: '平衡补丁前后 28 天职业胜率变化',
-    nPatch: '数据来自 Aligulac 职业比赛。加粗 = 统计显著（z 检验，α=0.05）。',
     deltaHead: [['season_bnet_id', '赛季'], ['region', '地区'], ['league', '段位'], ['matchup', '对阵'],
       ['winrate_prev_pct', '上季 %'], ['winrate_cur_pct', '本季 %'], ['delta_pct', 'Δ 百分点']],
     langLabel: 'EN',
@@ -157,7 +154,6 @@ function applyLang() {
   $('h-length').textContent = t().hLength;
   $('h-delta').textContent = t().hDelta;
   $('h-patch').textContent = t().hPatch;
-  $('n-patch').textContent = t().nPatch;
   $('updated').textContent = data.meta?.generated_at ? t().updated(data.meta.generated_at) : '';
   render();
 }
