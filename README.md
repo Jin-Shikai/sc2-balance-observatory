@@ -30,6 +30,7 @@ Search any player and see their last 100 ranked 1v1 games from the opponents' si
 ## Findings so far
 
 - After patch 5.0.16, Zerg's winrate against Protoss rose in 8 of 9 region × league slices on the ladder (+0.5 to +1.3 pp), and by +8.4 pp in pro matches over the following 28 days.
+- The higher the skill level, the bigger the patch impact. In the 5.0.16 season, Terran vs Zerg stayed within ±1 pp in Diamond, fell 1.6–2.2 pp in Master and 4.8 pp in KR Grandmaster; in pro play the same patch moved ZvP by +8.4 pp, about eight times the Diamond shift.
 
 ## How it works
 
