@@ -52,40 +52,40 @@
     "region": "KR",
     "league": "GRANDMASTER",
     "matchup": "ZvP",
-    "winrate": "0.5244897959183673",
-    "games": "490"
+    "winrate": "0.5296442687747036",
+    "games": "506"
   },
   {
     "season_bnet_id": "68",
     "region": "KR",
     "league": "MASTER",
     "matchup": "ZvP",
-    "winrate": "0.4764621968616263",
-    "games": "1402"
+    "winrate": "0.47871598046057223",
+    "games": "1433"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "DIAMOND",
     "matchup": "PvT",
-    "winrate": "0.5370231058570661",
-    "games": "9305"
+    "winrate": "0.5388504798266432",
+    "games": "9691"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "DIAMOND",
     "matchup": "ZvP",
-    "winrate": "0.5262271841219209",
-    "games": "11286"
+    "winrate": "0.524908766867521",
+    "games": "11783"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "MASTER",
     "matchup": "PvT",
-    "winrate": "0.5297597042513863",
-    "games": "2705"
+    "winrate": "0.5263347763347763",
+    "games": "2772"
   },
   {
     "season_bnet_id": "64",
@@ -148,8 +148,8 @@
     "region": "US",
     "league": "GRANDMASTER",
     "matchup": "TvZ",
-    "winrate": "0.5337361530715005",
-    "games": "993"
+    "winrate": "0.5319148936170213",
+    "games": "1034"
   },
   {
     "season_bnet_id": "64",
@@ -196,8 +196,8 @@
     "region": "EU",
     "league": "DIAMOND",
     "matchup": "PvT",
-    "winrate": "0.538516815176775",
-    "games": "6958"
+    "winrate": "0.5380019452549674",
+    "games": "7197"
   },
   {
     "season_bnet_id": "64",
@@ -276,16 +276,16 @@
     "region": "EU",
     "league": "GRANDMASTER",
     "matchup": "PvT",
-    "winrate": "0.5667870036101083",
-    "games": "554"
+    "winrate": "0.5651408450704225",
+    "games": "568"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "GRANDMASTER",
     "matchup": "ZvP",
-    "winrate": "0.5646067415730337",
-    "games": "712"
+    "winrate": "0.5686813186813187",
+    "games": "728"
   },
   {
     "season_bnet_id": "64",
@@ -372,8 +372,8 @@
     "region": "KR",
     "league": "MASTER",
     "matchup": "TvZ",
-    "winrate": "0.5269320843091335",
-    "games": "1708"
+    "winrate": "0.5305084745762711",
+    "games": "1770"
   },
   {
     "season_bnet_id": "64",
@@ -476,24 +476,24 @@
     "region": "EU",
     "league": "GRANDMASTER",
     "matchup": "TvZ",
-    "winrate": "0.5416666666666666",
-    "games": "576"
+    "winrate": "0.5377855887521968",
+    "games": "569"
   },
   {
     "season_bnet_id": "68",
     "region": "EU",
     "league": "GRANDMASTER",
     "matchup": "ZvP",
-    "winrate": "0.463898916967509",
-    "games": "554"
+    "winrate": "0.4638447971781305",
+    "games": "567"
   },
   {
     "season_bnet_id": "68",
     "region": "EU",
     "league": "MASTER",
     "matchup": "TvZ",
-    "winrate": "0.5597826086956522",
-    "games": "3312"
+    "winrate": "0.5539947322212467",
+    "games": "3417"
   },
   {
     "season_bnet_id": "65",
@@ -548,8 +548,8 @@
     "region": "US",
     "league": "DIAMOND",
     "matchup": "TvZ",
-    "winrate": "0.5371155160628844",
-    "games": "14630"
+    "winrate": "0.5371462264150944",
+    "games": "15264"
   },
   {
     "season_bnet_id": "65",
@@ -596,8 +596,8 @@
     "region": "KR",
     "league": "DIAMOND",
     "matchup": "TvZ",
-    "winrate": "0.5334281650071123",
-    "games": "4921"
+    "winrate": "0.5337209302325582",
+    "games": "5160"
   },
   {
     "season_bnet_id": "64",
@@ -652,24 +652,24 @@
     "region": "KR",
     "league": "DIAMOND",
     "matchup": "PvT",
-    "winrate": "0.529837875129355",
-    "games": "2899"
+    "winrate": "0.5290023201856149",
+    "games": "3017"
   },
   {
     "season_bnet_id": "68",
     "region": "KR",
     "league": "DIAMOND",
     "matchup": "ZvP",
-    "winrate": "0.5286409584425309",
-    "games": "2671"
+    "winrate": "0.5284030010718114",
+    "games": "2799"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "GRANDMASTER",
     "matchup": "PvT",
-    "winrate": "0.505859375",
-    "games": "512"
+    "winrate": "0.5057471264367817",
+    "games": "522"
   },
   {
     "season_bnet_id": "64",
@@ -740,24 +740,24 @@
     "region": "EU",
     "league": "MASTER",
     "matchup": "ZvP",
-    "winrate": "0.4818138875767596",
-    "games": "2117"
+    "winrate": "0.48294930875576036",
+    "games": "2170"
   },
   {
     "season_bnet_id": "68",
     "region": "KR",
     "league": "MASTER",
     "matchup": "PvT",
-    "winrate": "0.5043594902749833",
-    "games": "1491"
+    "winrate": "0.5055591890124265",
+    "games": "1529"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "MASTER",
     "matchup": "ZvP",
-    "winrate": "0.5307788944723618",
-    "games": "3184"
+    "winrate": "0.5345608210081497",
+    "games": "3313"
   },
   {
     "season_bnet_id": "64",
@@ -796,8 +796,8 @@
     "region": "EU",
     "league": "MASTER",
     "matchup": "PvT",
-    "winrate": "0.5268603263032232",
-    "games": "2513"
+    "winrate": "0.5257890685142417",
+    "games": "2598"
   },
   {
     "season_bnet_id": "64",
@@ -884,8 +884,8 @@
     "region": "EU",
     "league": "DIAMOND",
     "matchup": "TvZ",
-    "winrate": "0.5566553999678094",
-    "games": "12426"
+    "winrate": "0.5565264460253634",
+    "games": "12932"
   },
   {
     "season_bnet_id": "64",
@@ -940,16 +940,16 @@
     "region": "KR",
     "league": "GRANDMASTER",
     "matchup": "PvT",
-    "winrate": "0.5288035450516987",
-    "games": "677"
+    "winrate": "0.532069970845481",
+    "games": "686"
   },
   {
     "season_bnet_id": "68",
     "region": "US",
     "league": "MASTER",
     "matchup": "TvZ",
-    "winrate": "0.4994837377387713",
-    "games": "3874"
+    "winrate": "0.4988803184871859",
+    "games": "4019"
   },
   {
     "season_bnet_id": "64",
@@ -1068,16 +1068,16 @@
     "region": "EU",
     "league": "DIAMOND",
     "matchup": "ZvP",
-    "winrate": "0.5356795854474792",
-    "games": "9263"
+    "winrate": "0.5350093496779555",
+    "games": "9626"
   },
   {
     "season_bnet_id": "68",
     "region": "KR",
     "league": "GRANDMASTER",
     "matchup": "TvZ",
-    "winrate": "0.5484460694698354",
-    "games": "547"
+    "winrate": "0.549645390070922",
+    "games": "564"
   },
   {
     "season_bnet_id": "65",
@@ -1092,8 +1092,8 @@
     "region": "ALL",
     "league": "GRANDMASTER",
     "matchup": "ZvP",
-    "winrate": "0.5216400911161732",
-    "games": "1756"
+    "winrate": "0.5247084952803998",
+    "games": "1801"
   },
   {
     "season_bnet_id": "64",
@@ -1108,8 +1108,8 @@
     "region": "ALL",
     "league": "DIAMOND",
     "matchup": "TvZ",
-    "winrate": "0.5441411014166432",
-    "games": "31977"
+    "winrate": "0.5441299916057081",
+    "games": "33356"
   },
   {
     "season_bnet_id": "67",
@@ -1148,8 +1148,8 @@
     "region": "ALL",
     "league": "MASTER",
     "matchup": "TvZ",
-    "winrate": "0.5272093546210929",
-    "games": "8894"
+    "winrate": "0.5254182055181403",
+    "games": "9206"
   },
   {
     "season_bnet_id": "65",
@@ -1188,8 +1188,8 @@
     "region": "ALL",
     "league": "MASTER",
     "matchup": "ZvP",
-    "winrate": "0.5039534536774578",
-    "games": "6703"
+    "winrate": "0.5067958357432042",
+    "games": "6916"
   },
   {
     "season_bnet_id": "65",
@@ -1292,16 +1292,16 @@
     "region": "ALL",
     "league": "DIAMOND",
     "matchup": "PvT",
-    "winrate": "0.5364784469262082",
-    "games": "19162"
+    "winrate": "0.5370509922130118",
+    "games": "19905"
   },
   {
     "season_bnet_id": "68",
     "region": "ALL",
     "league": "MASTER",
     "matchup": "PvT",
-    "winrate": "0.5230287673274706",
-    "games": "6709"
+    "winrate": "0.5215248586751703",
+    "games": "6899"
   },
   {
     "season_bnet_id": "64",
@@ -1356,8 +1356,8 @@
     "region": "ALL",
     "league": "GRANDMASTER",
     "matchup": "TvZ",
-    "winrate": "0.5396975425330813",
-    "games": "2116"
+    "winrate": "0.5380710659898477",
+    "games": "2167"
   },
   {
     "season_bnet_id": "64",
@@ -1372,8 +1372,8 @@
     "region": "ALL",
     "league": "DIAMOND",
     "matchup": "ZvP",
-    "winrate": "0.530275624461671",
-    "games": "23220"
+    "winrate": "0.5293291473892928",
+    "games": "24208"
   },
   {
     "season_bnet_id": "65",
@@ -1412,8 +1412,8 @@
     "region": "ALL",
     "league": "GRANDMASTER",
     "matchup": "PvT",
-    "winrate": "0.5341365461847389",
-    "games": "1743"
+    "winrate": "0.5349099099099099",
+    "games": "1776"
   },
   {
     "season_bnet_id": "67",
