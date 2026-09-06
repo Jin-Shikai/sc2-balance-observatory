@@ -17,6 +17,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 30 # export waits up to 10 min for the warehouse to start
     environment:
       name: github-pages
     env:
