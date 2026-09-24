@@ -83,12 +83,12 @@
     "league": "GRANDMASTER",
     "matchup": "ZvP",
     "winrate_prev_pct": "48.0",
-    "winrate_cur_pct": "52.6",
+    "winrate_cur_pct": "52.5",
     "delta_pct": "4.6",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "2242",
-    "games_cur": "819"
+    "games_cur": "824"
   },
   {
     "season_bnet_id": "68",
@@ -96,12 +96,12 @@
     "league": "MASTER",
     "matchup": "ZvP",
     "winrate_prev_pct": "48.4",
-    "winrate_cur_pct": "45.8",
-    "delta_pct": "-2.7",
+    "winrate_cur_pct": "45.6",
+    "delta_pct": "-2.8",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "8066",
-    "games_cur": "3707"
+    "games_cur": "3763"
   },
   {
     "season_bnet_id": "68",
@@ -114,7 +114,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "55464",
-    "games_cur": "23659"
+    "games_cur": "24063"
   },
   {
     "season_bnet_id": "68",
@@ -122,12 +122,12 @@
     "league": "DIAMOND",
     "matchup": "ZvP",
     "winrate_prev_pct": "52.4",
-    "winrate_cur_pct": "53.1",
+    "winrate_cur_pct": "53.2",
     "delta_pct": "0.7",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "75103",
-    "games_cur": "28185"
+    "games_cur": "28600"
   },
   {
     "season_bnet_id": "68",
@@ -135,12 +135,12 @@
     "league": "MASTER",
     "matchup": "PvT",
     "winrate_prev_pct": "49.8",
-    "winrate_cur_pct": "51.9",
-    "delta_pct": "2.0",
+    "winrate_cur_pct": "52.1",
+    "delta_pct": "2.2",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "18433",
-    "games_cur": "6779"
+    "games_cur": "6865"
   },
   {
     "season_bnet_id": "65",
@@ -214,11 +214,11 @@
     "matchup": "TvZ",
     "winrate_prev_pct": "49.2",
     "winrate_cur_pct": "49.7",
-    "delta_pct": "0.4",
+    "delta_pct": "0.5",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "2215",
-    "games_cur": "2161"
+    "games_cur": "2186"
   },
   {
     "season_bnet_id": "65",
@@ -283,7 +283,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "50498",
-    "games_cur": "19554"
+    "games_cur": "19866"
   },
   {
     "season_bnet_id": "65",
@@ -361,7 +361,7 @@
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "2954",
-    "games_cur": "854"
+    "games_cur": "867"
   },
   {
     "season_bnet_id": "68",
@@ -369,12 +369,12 @@
     "league": "GRANDMASTER",
     "matchup": "ZvP",
     "winrate_prev_pct": "50.2",
-    "winrate_cur_pct": "55.0",
-    "delta_pct": "4.8",
+    "winrate_cur_pct": "55.3",
+    "delta_pct": "5.1",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "2098",
-    "games_cur": "1254"
+    "games_cur": "1267"
   },
   {
     "season_bnet_id": "65",
@@ -465,7 +465,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "8844",
-    "games_cur": "4323"
+    "games_cur": "4374"
   },
   {
     "season_bnet_id": "65",
@@ -564,12 +564,12 @@
     "league": "GRANDMASTER",
     "matchup": "TvZ",
     "winrate_prev_pct": "49.5",
-    "winrate_cur_pct": "51.3",
-    "delta_pct": "1.8",
+    "winrate_cur_pct": "51.1",
+    "delta_pct": "1.7",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "1971",
-    "games_cur": "1051"
+    "games_cur": "1060"
   },
   {
     "season_bnet_id": "68",
@@ -577,12 +577,12 @@
     "league": "GRANDMASTER",
     "matchup": "ZvP",
     "winrate_prev_pct": "48.2",
-    "winrate_cur_pct": "44.3",
-    "delta_pct": "-4.0",
+    "winrate_cur_pct": "44.0",
+    "delta_pct": "-4.3",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "3224",
-    "games_cur": "854"
+    "games_cur": "862"
   },
   {
     "season_bnet_id": "68",
@@ -590,12 +590,12 @@
     "league": "MASTER",
     "matchup": "TvZ",
     "winrate_prev_pct": "51.6",
-    "winrate_cur_pct": "57.1",
+    "winrate_cur_pct": "57.2",
     "delta_pct": "5.5",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "20506",
-    "games_cur": "10644"
+    "games_cur": "10748"
   },
   {
     "season_bnet_id": "65",
@@ -686,7 +686,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "79241",
-    "games_cur": "37976"
+    "games_cur": "38637"
   },
   {
     "season_bnet_id": "65",
@@ -759,12 +759,12 @@
     "league": "DIAMOND",
     "matchup": "TvZ",
     "winrate_prev_pct": "53.2",
-    "winrate_cur_pct": "54.4",
-    "delta_pct": "1.2",
+    "winrate_cur_pct": "54.6",
+    "delta_pct": "1.3",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "22589",
-    "games_cur": "10808"
+    "games_cur": "10970"
   },
   {
     "season_bnet_id": "65",
@@ -837,12 +837,12 @@
     "league": "DIAMOND",
     "matchup": "PvT",
     "winrate_prev_pct": "53.5",
-    "winrate_cur_pct": "53.5",
-    "delta_pct": "0.0",
+    "winrate_cur_pct": "53.4",
+    "delta_pct": "-0.1",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "18396",
-    "games_cur": "5930"
+    "games_cur": "6044"
   },
   {
     "season_bnet_id": "68",
@@ -850,12 +850,12 @@
     "league": "DIAMOND",
     "matchup": "ZvP",
     "winrate_prev_pct": "53.3",
-    "winrate_cur_pct": "51.5",
-    "delta_pct": "-1.8",
+    "winrate_cur_pct": "51.4",
+    "delta_pct": "-1.9",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "16946",
-    "games_cur": "5907"
+    "games_cur": "6019"
   },
   {
     "season_bnet_id": "68",
@@ -863,12 +863,12 @@
     "league": "GRANDMASTER",
     "matchup": "PvT",
     "winrate_prev_pct": "50.8",
-    "winrate_cur_pct": "49.7",
-    "delta_pct": "-1.1",
+    "winrate_cur_pct": "49.8",
+    "delta_pct": "-1.0",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "1843",
-    "games_cur": "823"
+    "games_cur": "833"
   },
   {
     "season_bnet_id": "65",
@@ -968,11 +968,11 @@
     "matchup": "ZvP",
     "winrate_prev_pct": "50.9",
     "winrate_cur_pct": "52.8",
-    "delta_pct": "1.9",
+    "delta_pct": "2.0",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "20440",
-    "games_cur": "7366"
+    "games_cur": "7490"
   },
   {
     "season_bnet_id": "68",
@@ -980,12 +980,12 @@
     "league": "MASTER",
     "matchup": "PvT",
     "winrate_prev_pct": "51.3",
-    "winrate_cur_pct": "50.0",
-    "delta_pct": "-1.3",
+    "winrate_cur_pct": "49.9",
+    "delta_pct": "-1.4",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "9806",
-    "games_cur": "4124"
+    "games_cur": "4171"
   },
   {
     "season_bnet_id": "68",
@@ -993,12 +993,12 @@
     "league": "MASTER",
     "matchup": "ZvP",
     "winrate_prev_pct": "51.5",
-    "winrate_cur_pct": "54.6",
-    "delta_pct": "3.1",
+    "winrate_cur_pct": "54.5",
+    "delta_pct": "3.0",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "27102",
-    "games_cur": "9672"
+    "games_cur": "9821"
   },
   {
     "season_bnet_id": "66",
@@ -1050,7 +1050,7 @@
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "17075",
-    "games_cur": "6627"
+    "games_cur": "6719"
   },
   {
     "season_bnet_id": "65",
@@ -1167,7 +1167,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "64903",
-    "games_cur": "33376"
+    "games_cur": "33933"
   },
   {
     "season_bnet_id": "65",
@@ -1232,7 +1232,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "2000",
-    "games_cur": "1111"
+    "games_cur": "1118"
   },
   {
     "season_bnet_id": "68",
@@ -1240,12 +1240,12 @@
     "league": "MASTER",
     "matchup": "TvZ",
     "winrate_prev_pct": "49.9",
-    "winrate_cur_pct": "50.3",
-    "delta_pct": "0.4",
+    "winrate_cur_pct": "50.2",
+    "delta_pct": "0.3",
     "delta_significant": "false",
     "patches_in_season": null,
     "games_prev": "26089",
-    "games_cur": "10681"
+    "games_cur": "10897"
   },
   {
     "season_bnet_id": "65",
@@ -1388,7 +1388,7 @@
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "64345",
-    "games_cur": "24495"
+    "games_cur": "24982"
   },
   {
     "season_bnet_id": "68",
@@ -1396,11 +1396,11 @@
     "league": "GRANDMASTER",
     "matchup": "TvZ",
     "winrate_prev_pct": "48.5",
-    "winrate_cur_pct": "53.0",
-    "delta_pct": "4.5",
+    "winrate_cur_pct": "53.3",
+    "delta_pct": "4.8",
     "delta_significant": "true",
     "patches_in_season": null,
     "games_prev": "1896",
-    "games_cur": "1060"
+    "games_cur": "1068"
   }
 ]
