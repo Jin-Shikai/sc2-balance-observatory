@@ -36,7 +36,7 @@ function Test-TransientError($err) {
 # and health so a warehouse-side problem is visible in the job output.
 function Wait-Warehouse {
     $deadline = (Get-Date).AddSeconds($WarehouseStartTimeoutSec)
-    $startRequested = $false
+    $nextStart = Get-Date
     while ($true) {
         $wh = Invoke-Dbx -Method Get -Path "/api/2.0/sql/warehouses/$WarehouseId"
         $state = "$($wh.state)"
@@ -50,11 +50,20 @@ function Wait-Warehouse {
         if ($state -in @('DELETED', 'DELETING')) {
             throw "warehouse $WarehouseId is $state; point DATABRICKS_WAREHOUSE_ID at an existing warehouse"
         }
-        if ($state -eq 'STOPPED' -and -not $startRequested) {
+        # (Re)issue the start request while STOPPED, at most once a minute.
+        if ($state -eq 'STOPPED' -and (Get-Date) -ge $nextStart) {
             Write-Host 'starting warehouse...'
             try { Invoke-Dbx -Method Post -Path "/api/2.0/sql/warehouses/$WarehouseId/start" | Out-Null }
-            catch { Write-Warning "start request failed: $($_.ErrorDetails.Message) $($_.Exception.Message)" }
-            $startRequested = $true
+            catch {
+                $msg = "$($_.ErrorDetails.Message) $($_.Exception.Message)"
+                # Free Edition: the workspace itself was flagged inactive and all compute is
+                # denied. Waiting will not help; someone has to log in and reactivate it.
+                if ($msg -match 'DENY_NEW_AND_EXISTING_RESOURCES|"denyReason":\s*"INACTIVE"') {
+                    throw "Databricks refuses to start any compute in this workspace (workspace flagged INACTIVE). Log in to the workspace in a browser and start the warehouse once, then re-run. Response: $msg"
+                }
+                Write-Warning "start request failed: $msg"
+            }
+            $nextStart = (Get-Date).AddSeconds(60)
         }
         if ((Get-Date) -gt $deadline) {
             throw "warehouse $WarehouseId is not RUNNING after ${WarehouseStartTimeoutSec}s (state=$state$health)"
