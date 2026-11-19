@@ -160,5 +160,14 @@
     "delta_significant": "false",
     "games_pre": "184",
     "games_post": "231"
+  },
+  {
+    "version": "5.0.17",
+    "release_ts": "2026-10-08T00:00:00Z",
+    "matchup": "PvT",
+    "delta_pct": "6.8",
+    "delta_significant": "false",
+    "games_pre": "123",
+    "games_post": "202"
   }
 ]
